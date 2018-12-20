@@ -21,6 +21,11 @@ import org.apache.dubbo.common.extension.SPI;
 /**
  * Filter. (SPI, Singleton, ThreadSafe)
  */
+/**
+ * @Description:    过滤器接口
+ * @Author:         nengjie
+ * @CreateDate:     2018年12月20日23:00:16 
+ */
 @SPI
 public interface Filter {
 
@@ -33,7 +38,7 @@ public interface Filter {
      * // after filter
      * return result;
      * </code>
-     *
+     * 执行 Invoker 的过滤逻辑。
      * @param invoker    service
      * @param invocation invocation.
      * @return invoke result.

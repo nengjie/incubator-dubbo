@@ -16,6 +16,11 @@
  */
 package org.apache.dubbo.demo;
 
+/**
+ * @Description:    定义服务接口
+ * @Author:         nengjie
+ * @CreateDate:     2018年12月19日23:15:19
+ */
 public interface DemoService {
 
     String sayHello(String name);

@@ -17,9 +17,13 @@
 package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.demo.DemoService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * @Description:    服务消费者
+ * @Author:         nengjie
+ * @CreateDate:     2018年12月19日23:25:29
+ */
 public class Consumer {
 
     /**
@@ -34,8 +38,8 @@ public class Consumer {
         while (true) {
             try {
                 Thread.sleep(1000);
-                String hello = demoService.sayHello("world"); // call remote method
-                System.out.println(hello); // get result
+//                String hello = demoService.sayHello("world"); // call remote method
+//                System.out.println(hello); // get result
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }

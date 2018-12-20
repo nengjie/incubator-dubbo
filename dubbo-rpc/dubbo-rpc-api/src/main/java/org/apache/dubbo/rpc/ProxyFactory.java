@@ -24,13 +24,18 @@ import org.apache.dubbo.common.extension.SPI;
 /**
  * ProxyFactory. (API/SPI, Singleton, ThreadSafe)
  */
+/**
+ * @Description:    代理工厂接口
+ * @Author:         nengjie
+ * @CreateDate:     2018年12月20日23:02:23 
+ */
 @SPI("javassist")
 public interface ProxyFactory {
 
     /**
      * create proxy.
-     *
-     * @param invoker
+     * 创建代理，引用服务调用
+     * @param invoker Consumer对 Provider 调用的 Invoker
      * @return proxy
      */
     @Adaptive({Constants.PROXY_KEY})
@@ -38,7 +43,8 @@ public interface ProxyFactory {
 
     /**
      * create proxy.
-     *
+     *  创建代理，引用服务调用
+     *  generic  通用
      * @param invoker
      * @return proxy
      */
@@ -47,11 +53,11 @@ public interface ProxyFactory {
 
     /**
      * create invoker.
-     *
+     * 创建invoker，在暴露服务时调用
      * @param <T>
-     * @param proxy
-     * @param type
-     * @param url
+     * @param proxy Service对象
+     * @param type Service 接口类型
+     * @param url Service 对应的URL地址
      * @return invoker
      */
     @Adaptive({Constants.PROXY_KEY})
