@@ -27,10 +27,14 @@ import java.util.Comparator;
  */
 public class ActivateComparator implements Comparator<Object> {
 
+    /**
+     * 单例模式
+     */
     public static final Comparator<Object> COMPARATOR = new ActivateComparator();
 
     @Override
     public int compare(Object o1, Object o2) {
+        // 基本排序
         if (o1 == null && o2 == null) {
             return 0;
         }
@@ -109,6 +113,7 @@ public class ActivateComparator implements Comparator<Object> {
                 }
             }
         }
+        // 使用注解的 `order` 属性，排序。
         int n1 = a1 == null ? 0 : a1Order;
         int n2 = a2 == null ? 0 : a2Order;
         // never return 0 even if n1 equals n2, otherwise, o1 and o2 will override each other in collection like HashSet

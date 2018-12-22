@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Creates a thread pool that reuses a fixed number of threads
+ * 实现 ThreadPool 接口，固定大小线程池，启动时建立线程，不关闭，一直持有。
  *
  * @see java.util.concurrent.Executors#newFixedThreadPool(int)
  */
@@ -37,13 +38,22 @@ public class FixedThreadPool implements ThreadPool {
 
     @Override
     public Executor getExecutor(URL url) {
+        // 线程名
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
+
+        // 线程数
         int threads = url.getParameter(Constants.THREADS_KEY, Constants.DEFAULT_THREADS);
+
+        // 队列数
         int queues = url.getParameter(Constants.QUEUES_KEY, Constants.DEFAULT_QUEUES);
+
+        // 创建线程执行器
         return new ThreadPoolExecutor(threads, threads, 0, TimeUnit.MILLISECONDS,
-                queues == 0 ? new SynchronousQueue<Runnable>() :
-                        (queues < 0 ? new LinkedBlockingQueue<Runnable>()
-                                : new LinkedBlockingQueue<Runnable>(queues)),
+                queues == 0 ? new SynchronousQueue<Runnable>() : // queues == 0 SynchronousQueue 对象
+                        (queues < 0 ? new LinkedBlockingQueue<Runnable>() // queues < 0 ， LinkedBlockingQueue 对象。
+                                : new LinkedBlockingQueue<Runnable>(queues)), //queues > 0 ，带队列数的 LinkedBlockingQueue 对象。
+                // 创建 NamedThreadFactory 对象，用于生成线程名。
+                // 创建 AbortPolicyWithReport 对象，用于当任务添加到线程池中被拒绝时。
                 new NamedInternalThreadFactory(name, true), new AbortPolicyWithReport(name, url));
     }
 

@@ -38,15 +38,23 @@ public class CachedThreadPool implements ThreadPool {
 
     @Override
     public Executor getExecutor(URL url) {
+        // 线程池名
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
+        // 核心线程数
         int cores = url.getParameter(Constants.CORE_THREADS_KEY, Constants.DEFAULT_CORE_THREADS);
+        // 最大线程数
         int threads = url.getParameter(Constants.THREADS_KEY, Integer.MAX_VALUE);
+        // 队列数
         int queues = url.getParameter(Constants.QUEUES_KEY, Constants.DEFAULT_QUEUES);
+        // 线程存活时长
         int alive = url.getParameter(Constants.ALIVE_KEY, Constants.DEFAULT_ALIVE);
+        // 创建线程执行器
         return new ThreadPoolExecutor(cores, threads, alive, TimeUnit.MILLISECONDS,
-                queues == 0 ? new SynchronousQueue<Runnable>() :
-                        (queues < 0 ? new LinkedBlockingQueue<Runnable>()
-                                : new LinkedBlockingQueue<Runnable>(queues)),
+                queues == 0 ? new SynchronousQueue<Runnable>() : // queues == 0 SynchronousQueue 对象
+                        (queues < 0 ? new LinkedBlockingQueue<Runnable>() // queues < 0 ， LinkedBlockingQueue 对象。
+                                : new LinkedBlockingQueue<Runnable>(queues)), //queues > 0 ，带队列数的 LinkedBlockingQueue 对象。
+                // 创建 NamedThreadFactory 对象，用于生成线程名。
+                // 创建 AbortPolicyWithReport 对象，用于当任务添加到线程池中被拒绝时。
                 new NamedInternalThreadFactory(name, true), new AbortPolicyWithReport(name, url));
     }
 }

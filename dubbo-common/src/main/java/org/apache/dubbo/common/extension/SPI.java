@@ -25,8 +25,9 @@ import java.lang.annotation.Target;
 
 /**
  * Marker for extension interface
+ * 扩展点接口的标识。
  * <p/>
- * Changes on extension configuration file <br/>
+ * Changes on extension configuration file <br/>  扩展点声明配置文件，格式修改。
  * Use <code>Protocol</code> as an example, its configuration file 'META-INF/dubbo/com.xxx.Protocol' is changes from: <br/>
  * <pre>
  *     com.foo.XxxProtocol
@@ -39,16 +40,22 @@ import java.lang.annotation.Target;
  *     yyy=com.foo.YyyProtocol
  * </pre>
  * <br/>
- * The reason for this change is:
+ * The reason for this change is: 原因：
  * <p>
  * If there's third party library referenced by static field or by method in extension implementation, its class will
  * fail to initialize if the third party library doesn't exist. In this case, dubbo cannot figure out extension's id
  * therefore cannot be able to map the exception information with the extension, if the previous format is used.
+ * 当扩展点的static字段或方法签名上引用了三方库，
+ * 如果三方库不存在，会导致类初始化失败，
+ * Extension标识Dubbo就拿不到了，异常信息就和配置对应不起来。
  * <p/>
  * For example:
  * <p>
  * Fails to load Extension("mina"). When user configure to use mina, dubbo will complain the extension cannot be loaded,
  * instead of reporting which extract extension implementation fails and the extract reason.
+ * Extension("mina")加载失败，
+ * 当用户配置使用mina时，就会报找不到扩展点，
+ * 而不是报加载扩展点失败，以及失败原因。
  * </p>
  */
 @Documented
