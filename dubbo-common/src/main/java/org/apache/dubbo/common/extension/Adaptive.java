@@ -26,17 +26,14 @@ import java.lang.annotation.Target;
 
 /**
  * Provide helpful information for {@link ExtensionLoader} to inject dependency extension instance.
- * 可添加类或方法上，分别代表了两种不同的使用方式。
- * 一个拓展接口，有且仅有一个 Adaptive 拓展实现类。
+
  *
- * 第一种，标记在类上，代表手动实现它是一个拓展接口的 Adaptive 拓展实现类。目前 Dubbo 项目里，
- * 只有 ExtensionFactory 拓展的实现类 AdaptiveExtensionFactory 有这么用。
- *
- * 第二种,标记在拓展接口的方法上，代表自动生成代码实现该接口的 Adaptive 拓展实现类。
- *
- *  value ，从 Dubbo URL 获取参数中，使用键名( Key )，获取键值。该值为真正的拓展名。
- *     自适应拓展实现类，会获取拓展名对应的真正的拓展对象。通过该对象，执行真正的逻辑。
- *     可以设置多个键名( Key )，顺序获取直到有值。若最终获取不到，使用默认拓展名。
+ *     Adaptive 可注解在类或方法上。
+ *     当 Adaptive 注解在类上时，Dubbo 不会为该类生成代理类。
+ *     注解在方法（接口方法）上时，Dubbo 则会为该方法生成代理逻辑。
+ *     Adaptive 注解在类上的情况很少，在 Dubbo 中，仅有两个类被 Adaptive 注解了，分别是 AdaptiveCompiler 和 AdaptiveExtensionFactory。
+ *     此种情况，表示拓展的加载逻辑由人工编码完成。更多时候，Adaptive 是注解在接口方法上的，表示拓展的加载逻辑需由框架自动生成。
+ *     Adaptive 注解的地方不同，相应的处理逻辑也是不同的。
  * @see ExtensionLoader
  * @see URL
  */

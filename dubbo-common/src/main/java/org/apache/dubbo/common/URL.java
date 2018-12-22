@@ -72,20 +72,27 @@ public /**final**/ class URL implements Serializable {
 
     private static final long serialVersionUID = -1985165475234910535L;
 
+    // 协议名
     private final String protocol;
 
+    // 用户名
     private final String username;
 
+    // 密码
     private final String password;
 
+    // 地址
     // by default, host to registry
     private final String host;
 
+    // 端口
     // by default, port to registry
     private final int port;
 
+    // 路径（服务名）
     private final String path;
 
+    // 参数集合
     private final Map<String, String> parameters;
 
     // ==== cache ====
@@ -1187,6 +1194,7 @@ public /**final**/ class URL implements Serializable {
         return buildString(appendUser, appendParameter, false, false, parameters);
     }
 
+    // 将所有配置最终都将转换为 Dubbo URL 表示
     private String buildString(boolean appendUser, boolean appendParameter, boolean useIP, boolean useService, String... parameters) {
         StringBuilder buf = new StringBuilder();
         if (protocol != null && protocol.length() > 0) {

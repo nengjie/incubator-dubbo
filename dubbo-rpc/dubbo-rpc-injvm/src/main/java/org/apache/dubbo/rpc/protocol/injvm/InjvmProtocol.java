@@ -81,8 +81,16 @@ public class InjvmProtocol extends AbstractProtocol implements Protocol {
         return DEFAULT_PORT;
     }
 
+    /**
+     *
+     * @param invoker Service invoker 服务的执行体
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
+        // 创建 InjvmExporter
         return new InjvmExporter<T>(invoker, invoker.getUrl().getServiceKey(), exporterMap);
     }
 

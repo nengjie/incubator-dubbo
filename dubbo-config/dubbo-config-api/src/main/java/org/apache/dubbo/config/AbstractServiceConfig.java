@@ -32,15 +32,19 @@ public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
 
     private static final long serialVersionUID = 1L;
 
+    // 服务版本，建议使用两位数字版本，如：1.0，通常在接口不兼容时版本号才需要升级
     // version
     protected String version;
 
+    // 服务分组，当一个接口有多个实现，可以用分组区分
     // group
     protected String group;
 
+    // 服务是否过时，如果设为true，消费方引用时将打印服务过时警告error日志
     // whether the service is deprecated
     protected Boolean deprecated;
 
+    // 延迟注册服务时间(毫秒) ，设为-1时，表示延迟到Spring容器初始化完成时暴露服务
     // delay service exporting
     protected Integer delay;
 
@@ -53,6 +57,7 @@ public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
     // document center
     protected String document;
 
+    // 服务是否动态注册，如果设为false，注册后将显示后disable状态，需人工启用，并且服务提供者停止时，也不会自动取消册，需人工禁用。
     // whether to register as a dynamic service or not on register center
     protected Boolean dynamic;
 
