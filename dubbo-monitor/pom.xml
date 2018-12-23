@@ -24,7 +24,9 @@
     <artifactId>dubbo-monitor</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>The monitor module of dubbo project</description>
+    <description>The monitor module of dubbo project
+        监控模块：统计服务调用次数，调用时间的，调用链跟踪的服务。
+    </description>
     <properties>
         <skip_maven_deploy>false</skip_maven_deploy>
     </properties>

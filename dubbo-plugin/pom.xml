@@ -26,7 +26,9 @@
     <packaging>pom</packaging>
 
     <name>dubbo-plugin</name>
-    <description>The registry module of dubbo project</description>
+    <description>The registry module of dubbo project
+        插件模块：提供了内置的插件。
+    </description>
     <modules>
         <module>dubbo-qos</module>
     </modules>

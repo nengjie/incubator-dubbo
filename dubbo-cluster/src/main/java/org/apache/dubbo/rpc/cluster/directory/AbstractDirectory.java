@@ -76,17 +76,34 @@ public abstract class AbstractDirectory<T> implements Directory<T> {
         setRouters(routers);
     }
 
+    /**
+     * AbstractDirectory 封装了 Invoker 列举流程，具体的列举逻辑则由子类实现，这是典型的模板模式。
+     * @param invocation
+     * @return
+     * @throws RpcException
+     */
     @Override
     public List<Invoker<T>> list(Invocation invocation) throws RpcException {
         if (destroyed) {
             throw new RpcException("Directory already destroyed .url: " + getUrl());
         }
+
+        // 调用 doList 方法列举 Invoker，doList 是模板方法，由子类实现
         List<Invoker<T>> invokers = doList(invocation);
+
+        // 获取路由 Router 列表
         List<Router> localRouters = this.routers; // local reference
         if (localRouters != null && !localRouters.isEmpty()) {
             for (Router router : localRouters) {
                 try {
+                    // 根据 Router 的 getUrl 返回值为空与否，以及 runtime 参数决定是否进行服务路由
+
+                    /**
+                     * Router 的 runtime 参数这里简单说明一下，这个参数决定了是否在每次调用服务时都执行路由规则。
+                     * 如果 runtime 为 true，那么每次调用服务前，都需要进行服务路由。这个对性能造成影响，配置时需要注意。
+                     */
                     if (router.getUrl() == null || router.getUrl().getParameter(Constants.RUNTIME_KEY, false)) {
+                        // 进行服务路由
                         invokers = router.route(invokers, getConsumerUrl(), invocation);
                     }
                 } catch (Throwable t) {
@@ -138,6 +155,12 @@ public abstract class AbstractDirectory<T> implements Directory<T> {
         destroyed = true;
     }
 
+    /**
+     *  模板方法，由子类实现
+     * @param invocation
+     * @return
+     * @throws RpcException
+     */
     protected abstract List<Invoker<T>> doList(Invocation invocation) throws RpcException;
 
 }

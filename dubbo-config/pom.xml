@@ -24,7 +24,9 @@
     <artifactId>dubbo-config</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>The config module of dubbo project</description>
+    <description>The config module of dubbo project
+        配置模块：是 Dubbo 对外的 API，用户通过 Config 使用Dubbo，隐藏 Dubbo 所有细节。
+    </description>
     <properties>
         <skip_maven_deploy>false</skip_maven_deploy>
     </properties>

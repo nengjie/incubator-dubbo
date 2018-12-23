@@ -70,6 +70,7 @@ public class Transporters {
         return connect(URL.valueOf(url), handler);
     }
 
+
     public static Client connect(URL url, ChannelHandler... handlers) throws RemotingException {
         if (url == null) {
             throw new IllegalArgumentException("url == null");
@@ -80,14 +81,19 @@ public class Transporters {
         } else if (handlers.length == 1) {
             handler = handlers[0];
         } else {
+            // 如果 handler 数量大于1，则创建一个 ChannelHandler 分发器
             handler = new ChannelHandlerDispatcher(handlers);
         }
+        // 获取 Transporter 自适应拓展类，并调用 connect 方法生成 Client 实例
         return getTransporter().connect(url, handler);
     }
 
     /**
      * getTransporter() 方法获取的 Transporter 是在运行时动态创建的，类名为 TransporterAdaptive，也就是自适应拓展类。
      * TransporterAdaptive 会在运行时根据传入的 URL 参数决定加载什么类型的 Transporter，默认为 NettyTransporter。
+     *
+     * getTransporter 方法返回的是自适应拓展类，该类会在运行时根据客户端类型加载指定的 Transporter 实现类。
+     * 若用户未配置客户端类型，则默认加载 NettyTransporter，并调用该类的 connect 方法。
      * @return
      */
     public static Transporter getTransporter() {

@@ -24,7 +24,9 @@
     <artifactId>dubbo-registry</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>The registry module of dubbo project</description>
+    <description>The registry module of dubbo project
+        注册中心模块：基于注册中心下发地址的集群方式，以及对各种注册中心的抽象。
+    </description>
     <properties>
         <skip_maven_deploy>false</skip_maven_deploy>
     </properties>

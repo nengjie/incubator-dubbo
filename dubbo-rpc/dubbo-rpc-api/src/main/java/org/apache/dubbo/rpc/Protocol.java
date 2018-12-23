@@ -25,6 +25,9 @@ import org.apache.dubbo.common.extension.SPI;
  */
 /**
  * @Description:    Protocol 是服务域，它是 Invoker 暴露和引用的主功能入口，它负责 Invoker 的生命周期管理。
+ *
+ * Invoker 是 Dubbo 的核心模型，代表一个可执行体。在服务提供方，Invoker 用于调用服务提供类。在服务消费方，Invoker 用于执行远程调用。
+ * Invoker 是由 Protocol 实现类构建而来。Protocol 实现类有很多，本节会分析最常用的两个，分别是 RegistryProtocol 和 DubboProtocol，
  * @Author:         nengjie
  * @CreateDate:     2018年12月20日23:10:23 
  */

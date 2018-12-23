@@ -24,7 +24,9 @@
     <artifactId>dubbo-cluster</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>The cluster module of dubbo project</description>
+    <description>The cluster module of dubbo project
+        集群模块：将多个服务提供方伪装为一个提供方，包括：负载均衡, 集群容错，路由，分组聚合等。集群的地址列表可以是静态配置的，也可以是由注册中心下发。
+    </description>
     <properties>
         <skip_maven_deploy>false</skip_maven_deploy>
     </properties>

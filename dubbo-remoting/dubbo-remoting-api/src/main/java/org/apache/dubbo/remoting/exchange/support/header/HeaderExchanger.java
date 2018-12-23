@@ -46,6 +46,12 @@ public class HeaderExchanger implements Exchanger {
         //   1. new HeaderExchangeHandler(handler)
         //	 2. new DecodeHandler(new HeaderExchangeHandler(handler))
         //   3. Transporters.bind(url, new DecodeHandler(new HeaderExchangeHandler(handler)))
+
+        // 这里包含了多个调用，分别如下：
+        // 1. 创建 HeaderExchangeHandler 对象
+        // 2. 创建 DecodeHandler 对象
+        // 3. 通过 Transporters 构建 Client 实例
+        // 4. 创建 HeaderExchangeClient 对象
         return new HeaderExchangeServer(Transporters.bind(url, new DecodeHandler(new HeaderExchangeHandler(handler))));
     }
 
