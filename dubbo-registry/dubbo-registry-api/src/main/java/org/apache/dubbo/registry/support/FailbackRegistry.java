@@ -38,6 +38,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * FailbackRegistry. (SPI, Prototype, ThreadSafe)
+ *
+ * FailbackRegistry 在 AbstractRegistry 的基础上，实现了和注册中心实际的操作，并且支持失败重试的特性。
  */
 public abstract class FailbackRegistry extends AbstractRegistry {
 
@@ -221,11 +223,21 @@ public abstract class FailbackRegistry extends AbstractRegistry {
     }
 
 
+    /**
+     * 注册操作
+     * @param url  Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
+     */
     @Override
     public void register(URL url) {
+
+        // 添加到registered变量中
         super.register(url);
+
+        // 移除出 `failedRegistered` `failedUnregistered` 变量
         removeFailedRegistered(url);
         removeFailedUnregistered(url);
+
+        // 向注册中心发送注册请求
         try {
             // Sending a registration request to the server side
             // 模板方法，由子类实现
@@ -256,11 +268,15 @@ public abstract class FailbackRegistry extends AbstractRegistry {
 
     @Override
     public void unregister(URL url) {
+        // 移除registered变量中的值
         super.unregister(url);
+
+        // 移除出 FailedRegistered FailedUnregistered
         removeFailedRegistered(url);
         removeFailedUnregistered(url);
         try {
             // Sending a cancellation request to the server side
+            // 模板方法，由子类实现
             doUnregister(url);
         } catch (Exception e) {
             Throwable t = e;
@@ -280,12 +296,15 @@ public abstract class FailbackRegistry extends AbstractRegistry {
             }
 
             // Record a failed registration request to a failed list, retry regularly
+            // 记录取消注册失败的链接
             addFailedUnregistered(url);
         }
     }
 
     @Override
     public void subscribe(URL url, NotifyListener listener) {
+
+        // 增加进 `subscribed` 变量
         super.subscribe(url, listener);
         removeFailedSubscribed(url, listener);
         try {
@@ -320,6 +339,8 @@ public abstract class FailbackRegistry extends AbstractRegistry {
 
     @Override
     public void unsubscribe(URL url, NotifyListener listener) {
+
+        // 移除 'subscribed'的变量
         super.unsubscribe(url, listener);
         removeFailedSubscribed(url, listener);
         try {
@@ -394,6 +415,9 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         }
     }
 
+    /**
+     * 关闭定时器
+     */
     @Override
     public void destroy() {
         super.destroy();

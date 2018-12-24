@@ -44,16 +44,34 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     private final static Logger logger = LoggerFactory.getLogger(ZookeeperRegistry.class);
 
+    /**
+     * 默认端口
+     */
     private final static int DEFAULT_ZOOKEEPER_PORT = 2181;
 
+    /**
+     * 默认 Zookeeper 根节点
+     */
     private final static String DEFAULT_ROOT = "dubbo";
 
+    /**
+     * Zookeeper 根节点
+     */
     private final String root;
 
+    /**
+     * Service 接口全名集合
+     */
     private final Set<String> anyServices = new ConcurrentHashSet<String>();
 
+    /**
+     * 监听器集合
+     */
     private final ConcurrentMap<URL, ConcurrentMap<NotifyListener, ChildListener>> zkListeners = new ConcurrentHashMap<URL, ConcurrentMap<NotifyListener, ChildListener>>();
 
+    /**
+     * Zookeeper 客户端
+     */
     private final ZookeeperClient zkClient;
 
     public ZookeeperRegistry(URL url, ZookeeperTransporter zookeeperTransporter) {
@@ -75,6 +93,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
         zkClient.addStateListener(new StateListener() {
             @Override
             public void stateChanged(int state) {
+                // 重新连接
                 if (state == RECONNECTED) {
                     try {
                         recover();
@@ -113,6 +132,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
     }
 
+
     @Override
     public void doRegister(URL url) {
         try {
@@ -120,12 +140,17 @@ public class ZookeeperRegistry extends FailbackRegistry {
             //   /${group}/${serviceInterface}/providers/${url}
             // 比如
             //   /dubbo/org.apache.dubbo.DemoService/providers/dubbo%3A%2F%2F127.0.0.1......
+            // 是否动态数据。若为 false ，该数据为持久数据，当注册方退出时，数据依然保存在注册中心。
             zkClient.create(toUrlPath(url), url.getParameter(Constants.DYNAMIC_KEY, true));
         } catch (Throwable e) {
             throw new RpcException("Failed to register " + url + " to zookeeper " + getUrl() + ", cause: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * 删除节点
+     * @param url
+     */
     @Override
     public void doUnregister(URL url) {
         try {
@@ -240,6 +265,10 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
     }
 
+    /**
+     * 获得根目录
+     * @return
+     */
     private String toRootDir() {
         if (root.equals(Constants.PATH_SEPARATOR)) {
             return root;
@@ -247,10 +276,19 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return root + Constants.PATH_SEPARATOR;
     }
 
+    /**
+     * Root
+     * @return
+     */
     private String toRootPath() {
         return root;
     }
 
+    /**
+     * 获得服务路径
+     * @param url
+     * @return
+     */
     private String toServicePath(URL url) {
         String name = url.getServiceInterface();
         if (Constants.ANY_VALUE.equals(name)) {
@@ -274,10 +312,20 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return paths;
     }
 
+    /**
+     * 获得分类路径
+     * @param url
+     * @return
+     */
     private String toCategoryPath(URL url) {
         return toServicePath(url) + Constants.PATH_SEPARATOR + url.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY);
     }
 
+    /**
+     * 获得 URL 的路径
+     * @param url
+     * @return
+     */
     private String toUrlPath(URL url) {
         return toCategoryPath(url) + Constants.PATH_SEPARATOR + URL.encode(url.toFullString());
     }

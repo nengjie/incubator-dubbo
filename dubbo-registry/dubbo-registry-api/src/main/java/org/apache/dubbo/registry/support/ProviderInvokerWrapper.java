@@ -24,6 +24,7 @@ import org.apache.dubbo.rpc.RpcException;
 
 /**
  * @date 2017/11/23
+ * 相比纯粹的 Invoker 对象，又多了运维命令需要的属性。例如 isReg 状态属性，可以在使用下线服务命令后，标记为 false 。
  */
 public class ProviderInvokerWrapper<T> implements Invoker {
     private Invoker<T> invoker;

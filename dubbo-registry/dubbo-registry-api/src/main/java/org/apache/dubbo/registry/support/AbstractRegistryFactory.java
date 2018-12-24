@@ -57,6 +57,7 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
 
     /**
      * Close all created registries
+     * 销毁所有的注册中心
      */
     // TODO: 2017/8/30 to move somewhere else better
     public static void destroyAll() {
@@ -64,8 +65,10 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
             LOGGER.info("Close all registries " + getRegistries());
         }
         // Lock up the registry shutdown process
+
         LOCK.lock();
         try {
+            // 遍历销毁
             for (Registry registry : getRegistries()) {
                 try {
                     registry.destroy();
@@ -73,15 +76,18 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
                     LOGGER.error(e.getMessage(), e);
                 }
             }
+            // 清空缓存
             REGISTRIES.clear();
         } finally {
             // Release the lock
+            // 释放锁
             LOCK.unlock();
         }
     }
 
     /**
-     * getRegistry 方法先访问缓存，缓存未命中则调用 createRegistry 创建 Registry，然后写入缓存。这里的 createRegistry 是一个模板方法，由具体的子类实现。
+     * getRegistry 方法先访问缓存，缓存未命中则调用 createRegistry 创建 Registry，然后写入缓存。
+     * 这里的 createRegistry 是一个模板方法，由具体的子类实现。
      * @param url Registry address, is not allowed to be empty
      * @return
      */
@@ -113,6 +119,11 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
         }
     }
 
+    /**
+     * 创建 Registry
+     * @param url 注册中心地址
+     * @return Registry 对象
+     */
     protected abstract Registry createRegistry(URL url);
 
 }

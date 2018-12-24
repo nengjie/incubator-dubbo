@@ -25,12 +25,18 @@ import org.apache.dubbo.rpc.RpcException;
 
 /**
  * @date 2017/11/23
+ * 实现 Invoker 接口，服务消费者 Invoker Wrapper
+ * 相比纯粹的 Invoker 对象，又多了运维命令需要的属性。
+ * 例如 registryDirectory 属性，可以在使用列出消费者和提供者命令后，输出可消费者可调用的服务提供者数量 。
  */
 public class ConsumerInvokerWrapper<T> implements Invoker {
     private Invoker<T> invoker;
     private URL originUrl;
     private URL registryUrl;
     private URL consumerUrl;
+    /**
+     * 注册中心 Directory
+     */
     private RegistryDirectory registryDirectory;
 
     public ConsumerInvokerWrapper(Invoker<T> invoker, URL registryUrl, URL consumerUrl, RegistryDirectory registryDirectory) {

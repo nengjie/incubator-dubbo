@@ -24,6 +24,7 @@ public class ZkclientZookeeperTransporter implements ZookeeperTransporter {
 
     @Override
     public ZookeeperClient connect(URL url) {
+        // 创建 ZkclientZookeeperClient
         return new ZkclientZookeeperClient(url);
     }
 

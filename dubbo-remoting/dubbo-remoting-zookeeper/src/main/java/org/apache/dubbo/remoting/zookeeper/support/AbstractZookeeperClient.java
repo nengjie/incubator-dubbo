@@ -29,16 +29,37 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * @Description:    Zookeeper 客户端抽象类
+ * @Author:         nengjie
+ * @CreateDate:     2018年12月24日23:28:15
+ */
 public abstract class AbstractZookeeperClient<TargetChildListener> implements ZookeeperClient {
 
     protected static final Logger logger = LoggerFactory.getLogger(AbstractZookeeperClient.class);
 
+    /**
+     * 注册中心 URL
+     */
     private final URL url;
 
+    /**
+     * StateListener 集合
+     */
     private final Set<StateListener> stateListeners = new CopyOnWriteArraySet<StateListener>();
 
+    /**
+     * ChildListener 集合
+     *
+     * ConcurrentMap  string 节点的路径
+     *                ConcurrentMap   ChildListener 对象
+     *                                TargetChildListener 监听器具体对象。不同 Zookeeper 客户端，实现会不同。
+     */
     private final ConcurrentMap<String, ConcurrentMap<ChildListener, TargetChildListener>> childListeners = new ConcurrentHashMap<String, ConcurrentMap<ChildListener, TargetChildListener>>();
 
+    /**
+     * 是否关闭
+     */
     private volatile boolean closed = false;
 
     public AbstractZookeeperClient(URL url) {
@@ -92,36 +113,52 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     @Override
     public List<String> addChildListener(String path, final ChildListener listener) {
+        // 获得路径下的监听器数组
         ConcurrentMap<ChildListener, TargetChildListener> listeners = childListeners.get(path);
         if (listeners == null) {
             childListeners.putIfAbsent(path, new ConcurrentHashMap<ChildListener, TargetChildListener>());
             listeners = childListeners.get(path);
         }
+
+        // 获得是否已经有该监听器
         TargetChildListener targetListener = listeners.get(listener);
+
+        // 监听器不存在，进行创建
         if (targetListener == null) {
             listeners.putIfAbsent(listener, createTargetChildListener(path, listener));
             targetListener = listeners.get(listener);
         }
+        // 向 Zookeeper ，真正发起订阅
         return addTargetChildListener(path, targetListener);
     }
 
+
     @Override
     public void removeChildListener(String path, ChildListener listener) {
+        // 获得路径下的监听器数组
         ConcurrentMap<ChildListener, TargetChildListener> listeners = childListeners.get(path);
         if (listeners != null) {
             TargetChildListener targetListener = listeners.remove(listener);
             if (targetListener != null) {
+                // 向 Zookeeper ，真正发起取消订阅
                 removeTargetChildListener(path, targetListener);
             }
         }
     }
 
+    /**
+     * 改变状态
+     * @param state 状态
+     */
     protected void stateChanged(int state) {
         for (StateListener sessionListener : getSessionListeners()) {
             sessionListener.stateChanged(state);
         }
     }
 
+    /**
+     * 关闭 Zookeeper 连接
+     */
     @Override
     public void close() {
         if (closed) {

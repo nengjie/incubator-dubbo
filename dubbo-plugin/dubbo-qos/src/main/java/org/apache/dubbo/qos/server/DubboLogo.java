@@ -22,4 +22,9 @@ public class DubboLogo {
                     "  / _ \\ / / / // _ ) / _ ) / __ \\  \n" +
                     " / // // /_/ // _  |/ _  |/ /_/ /    \n" +
                     "/____/ \\____//____//____/ \\____/   \n";
+
+
+    public static void main(String[] args) {
+        System.out.println(DubboLogo.dubbo);
+    }
 }

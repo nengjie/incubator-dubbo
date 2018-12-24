@@ -33,6 +33,9 @@ import java.util.concurrent.TimeUnit;
  * Zkclient wrapper class that can monitor the state of the connection automatically after the connection is out of time
  * It is also consistent with the use of curator
  *
+ *  连接超时后，能自动监听连接状态的zkclient包装类
+ *  也为和curator在使用上总体保持一致
+ *
  * @date 2017/10/29
  */
 public class ZkClientWrapper {
@@ -45,14 +48,19 @@ public class ZkClientWrapper {
 
     public ZkClientWrapper(final String serverAddr, long timeout) {
         this.timeout = timeout;
-        completableFuture = CompletableFuture.supplyAsync(() -> new ZkClient(serverAddr, Integer.MAX_VALUE));
+        completableFuture = CompletableFuture.supplyAsync(() -> new ZkClient(serverAddr, Integer.MAX_VALUE));// 连接超时设置为无限，在 {@link #start()} 方法中，通过 listenableFutureTask ，实现超时。
     }
 
+    /**
+     * 启动 Zookeeper 客户端
+     */
     public void start() {
         if (!started) {
             try {
                 client = completableFuture.get(timeout, TimeUnit.MILLISECONDS);
 //                this.client.subscribeStateChanges(IZkStateListener);
+
+                // 连接。若超时，打印错误日志，不会抛出异常。
             } catch (Throwable t) {
                 logger.error("Timeout! zookeeper server can not be connected in : " + timeout + "ms!", t);
                 completableFuture.whenComplete(this::makeClientReady);
@@ -63,6 +71,10 @@ public class ZkClientWrapper {
         }
     }
 
+    /**
+     * 添加状态监听器
+     * @param listener listener 监听器
+     */
     public void addListener(IZkStateListener listener) {
         completableFuture.whenComplete((value, exception) -> {
             this.makeClientReady(value, exception);
