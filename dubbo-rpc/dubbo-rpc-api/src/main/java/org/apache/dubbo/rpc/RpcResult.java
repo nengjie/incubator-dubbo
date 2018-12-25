@@ -38,9 +38,11 @@ public class RpcResult extends AbstractResult {
 
     @Override
     public Object recreate() throws Throwable {
+        // 有异常，抛出异常
         if (exception != null) {
             throw exception;
         }
+        // 无异常，返回结果
         return result;
     }
 

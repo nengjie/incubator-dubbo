@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 
 /**
  * Wrapper.
+ * Wrapper 抽象类，用于创建某个对象的方法调用的包装器，以避免反射调用，提高性能。
  */
 public abstract class Wrapper {
     private static final Map<Class<?>, Wrapper> WRAPPER_MAP = new ConcurrentHashMap<Class<?>, Wrapper>(); //class wrapper map
@@ -99,11 +100,12 @@ public abstract class Wrapper {
 
     /**
      * get wrapper.
-     *
+     *  根据指定类，获得 Wrapper 对象。
      * @param c Class instance.
      * @return Wrapper instance(not null).
      */
     public static Wrapper getWrapper(Class<?> c) {
+        // 判断是否已经继承了 ClassGenerator.DC.class ，如果是，拿到父类，避免重复包装。
         while (ClassGenerator.isDynamicClass(c)) // can not wrapper on dynamic class.
         {
             c = c.getSuperclass();

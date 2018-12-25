@@ -160,23 +160,39 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
     }
 
+    /**
+     * 订阅
+     * @param url
+     * @param listener
+     */
     @Override
     public void doSubscribe(final URL url, final NotifyListener listener) {
         try {
+            // 处理所有 Service 层的发起订阅，例如监控中心的订阅
             if (Constants.ANY_VALUE.equals(url.getServiceInterface())) {
                 String root = toRootPath();
+
+                // 获得 url 对应的监听器集合
                 ConcurrentMap<NotifyListener, ChildListener> listeners = zkListeners.get(url);
+
+                // 不存在，进行创建
                 if (listeners == null) {
                     zkListeners.putIfAbsent(url, new ConcurrentHashMap<NotifyListener, ChildListener>());
                     listeners = zkListeners.get(url);
                 }
+
+                // 获得 ChildListener 对象
                 ChildListener zkListener = listeners.get(listener);
+
+                // 不存在 ChildListener 对象，进行创建 ChildListener 对象
                 if (zkListener == null) {
                     listeners.putIfAbsent(listener, new ChildListener() {
                         @Override
                         public void childChanged(String parentPath, List<String> currentChilds) {
                             for (String child : currentChilds) {
                                 child = URL.decode(child);
+
+                                // 新增 Service 接口全名时（即新增服务），发起该 Service 层的订阅
                                 if (!anyServices.contains(child)) {
                                     anyServices.add(child);
                                     subscribe(url.setPath(child).addParameters(Constants.INTERFACE_KEY, child,
@@ -187,8 +203,14 @@ public class ZookeeperRegistry extends FailbackRegistry {
                     });
                     zkListener = listeners.get(listener);
                 }
+
+                // 创建 Service 节点。该节点为持久节点。
                 zkClient.create(root, false);
+
+                // 向 Zookeeper ，Service 节点，发起订阅
                 List<String> services = zkClient.addChildListener(root, zkListener);
+
+                // 首次全量数据获取完成时，循环 Service 接口全名数组，发起该 Service 层的订阅
                 if (services != null && !services.isEmpty()) {
                     for (String service : services) {
                         service = URL.decode(service);
@@ -197,30 +219,54 @@ public class ZookeeperRegistry extends FailbackRegistry {
                                 Constants.CHECK_KEY, String.valueOf(false)), listener);
                     }
                 }
+
+                // 处理指定 Service 层的发起订阅，例如服务消费者的订阅
             } else {
+
+                // 子节点数据数组
                 List<URL> urls = new ArrayList<URL>();
+
+                // 循环分类数组
                 for (String path : toCategoriesPath(url)) {
+
+                    // 获得 url 对应的监听器集合
                     ConcurrentMap<NotifyListener, ChildListener> listeners = zkListeners.get(url);
+
+                    // 不存在，进行创建
                     if (listeners == null) {
                         zkListeners.putIfAbsent(url, new ConcurrentHashMap<NotifyListener, ChildListener>());
                         listeners = zkListeners.get(url);
                     }
+
+                    // 获得 ChildListener 对象
                     ChildListener zkListener = listeners.get(listener);
+
+                    // 不存在 ChildListener 对象，进行创建 ChildListener 对象
                     if (zkListener == null) {
                         listeners.putIfAbsent(listener, new ChildListener() {
                             @Override
                             public void childChanged(String parentPath, List<String> currentChilds) {
+
+                                // 变更时，调用 `#notify(...)` 方法，回调 NotifyListener
                                 ZookeeperRegistry.this.notify(url, listener, toUrlsWithEmpty(url, parentPath, currentChilds));
                             }
                         });
                         zkListener = listeners.get(listener);
                     }
+
+                    // 创建 Type 节点。该节点为持久节点。
                     zkClient.create(path, false);
+
+                    // 向 Zookeeper ，PATH 节点，发起订阅
                     List<String> children = zkClient.addChildListener(path, zkListener);
+
+                    // 添加到 `urls` 中
                     if (children != null) {
                         urls.addAll(toUrlsWithEmpty(url, path, children));
                     }
                 }
+
+                // 首次全量数据获取完成时，调用 `#notify(...)` 方法，回调 NotifyListener
                 notify(url, listener, urls);
             }
         } catch (Throwable e) {
@@ -239,6 +285,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
                     zkClient.removeChildListener(root, zkListener);
                 } else {
                     for (String path : toCategoriesPath(url)) {
+                        // 向 Zookeeper ，移除订阅
                         zkClient.removeChildListener(path, zkListener);
                     }
                 }
@@ -246,12 +293,19 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
     }
 
+    /**
+     * 查询符合条件的已注册数据，与订阅的推模式相对应，这里为拉模式，只返回一次结果。
+     * @param url
+     * @return
+     */
     @Override
     public List<URL> lookup(URL url) {
         if (url == null) {
             throw new IllegalArgumentException("lookup url == null");
         }
         try {
+
+            // 循环分类数组，获得所有的 URL 数组
             List<String> providers = new ArrayList<String>();
             for (String path : toCategoriesPath(url)) {
                 List<String> children = zkClient.getChildren(path);
@@ -259,6 +313,8 @@ public class ZookeeperRegistry extends FailbackRegistry {
                     providers.addAll(children);
                 }
             }
+
+            // 匹配
             return toUrlsWithoutEmpty(url, providers);
         } catch (Throwable e) {
             throw new RpcException("Failed to lookup " + url + " from zookeeper " + getUrl() + ", cause: " + e.getMessage(), e);
@@ -297,7 +353,15 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return toRootDir() + URL.encode(name);
     }
 
+    /**
+     * 获得分类路径数组
+     *
+     * Root + Service + Type
+     * @param url
+     * @return
+     */
     private String[] toCategoriesPath(URL url) {
+        // 获得分类数组
         String[] categories;
         if (Constants.ANY_VALUE.equals(url.getParameter(Constants.CATEGORY_KEY))) {
             categories = new String[]{Constants.PROVIDERS_CATEGORY, Constants.CONSUMERS_CATEGORY,
@@ -305,6 +369,8 @@ public class ZookeeperRegistry extends FailbackRegistry {
         } else {
             categories = url.getParameter(Constants.CATEGORY_KEY, new String[]{Constants.DEFAULT_CATEGORY});
         }
+
+        // 获得分类路径数组
         String[] paths = new String[categories.length];
         for (int i = 0; i < categories.length; i++) {
             paths[i] = toServicePath(url) + Constants.PATH_SEPARATOR + categories[i];
@@ -330,13 +396,25 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return toCategoryPath(url) + Constants.PATH_SEPARATOR + URL.encode(url.toFullString());
     }
 
+    /**
+     *  获得 providers 中，和 consumer 匹配的 URL 数组
+     * @param consumer
+     * @param providers
+     * @return
+     */
     private List<URL> toUrlsWithoutEmpty(URL consumer, List<String> providers) {
         List<URL> urls = new ArrayList<URL>();
         if (providers != null && !providers.isEmpty()) {
             for (String provider : providers) {
                 provider = URL.decode(provider);
+
+                // 是 url
                 if (provider.contains(Constants.PROTOCOL_SEPARATOR)) {
+
+                    // 将字符串转化成 URL
                     URL url = URL.valueOf(provider);
+
+                    // 匹配
                     if (UrlUtils.isMatch(consumer, url)) {
                         urls.add(url);
                     }
@@ -346,8 +424,19 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return urls;
     }
 
+    /**
+     * 获得 providers 中，和 consumer 匹配的 URL 数组
+     * @param consumer
+     * @param path
+     * @param providers
+     * @return
+     */
     private List<URL> toUrlsWithEmpty(URL consumer, String path, List<String> providers) {
+
+        // 获得 providers 中，和 consumer 匹配的 URL 数组
         List<URL> urls = toUrlsWithoutEmpty(consumer, providers);
+
+        // 若不存在匹配，则创建 `empty://` 的 URL返回
         if (urls == null || urls.isEmpty()) {
             int i = path.lastIndexOf(Constants.PATH_SEPARATOR);
             String category = i < 0 ? path : path.substring(i + 1);

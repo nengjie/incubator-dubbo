@@ -151,6 +151,10 @@ public abstract class AbstractRegistry implements Registry {
         return registered;
     }
 
+    /**
+     * 订阅 URL 的监听器集合
+     * @return
+     */
     public Map<URL, Set<NotifyListener>> getSubscribed() {
         return subscribed;
     }

@@ -27,20 +27,28 @@ import java.util.Map;
  */
 class InjvmExporter<T> extends AbstractExporter<T> {
 
+    /**
+     * 服务键
+     */
     private final String key;
 
+    /**
+     * Exporter 集合
+     */
     private final Map<String, Exporter<?>> exporterMap;
 
     InjvmExporter(Invoker<T> invoker, String key, Map<String, Exporter<?>> exporterMap) {
         super(invoker);
         this.key = key;
         this.exporterMap = exporterMap;
+        // 添加到 Exporter 集合
         exporterMap.put(key, this);
     }
 
     @Override
     public void unexport() {
         super.unexport();
+        // 移除出 Exporter 集合
         exporterMap.remove(key);
     }
 

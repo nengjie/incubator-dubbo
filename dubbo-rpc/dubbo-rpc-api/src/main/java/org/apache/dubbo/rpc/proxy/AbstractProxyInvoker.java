@@ -37,10 +37,19 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
     Logger logger = LoggerFactory.getLogger(AbstractProxyInvoker.class);
 
+    /**
+     * 代理的对象，一般是 Service 实现对象
+     */
     private final T proxy;
 
+    /**
+     * 接口类型，一般是 Service 接口
+     */
     private final Class<T> type;
 
+    /**
+     * URL 对象，一般是暴露服务的 URL 对象
+     */
     private final URL url;
 
     public AbstractProxyInvoker(T proxy, Class<T> type, URL url) {
@@ -101,6 +110,15 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
         }
     }
 
+    /**
+     * 执行调用
+     * @param proxy
+     * @param methodName
+     * @param parameterTypes
+     * @param arguments
+     * @return
+     * @throws Throwable
+     */
     protected abstract Object doInvoke(T proxy, String methodName, Class<?>[] parameterTypes, Object[] arguments) throws Throwable;
 
     @Override
