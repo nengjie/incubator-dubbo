@@ -26,7 +26,7 @@ import org.apache.dubbo.rpc.proxy.InvokerInvocationHandler;
 
 /**
  * JavaassistRpcProxyFactory
- *
+ * <p>
  * Invoker 是由 ProxyFactory 创建而来，Dubbo 默认的 ProxyFactory 实现类是 JavassistProxyFactory。
  */
 public class JavassistProxyFactory extends AbstractProxyFactory {
@@ -35,6 +35,7 @@ public class JavassistProxyFactory extends AbstractProxyFactory {
      * 首先是通过 Proxy 的 getProxy 方法获取 Proxy 子类，然后创建 InvokerInvocationHandler 对象，
      * 并将该对象传给 newInstance 生成 Proxy 实例。
      * InvokerInvocationHandler 实现自 JDK 的 InvocationHandler 接口，具体的用途是拦截接口类调用。
+     *
      * @param invoker
      * @param interfaces
      * @param <T>
@@ -53,9 +54,10 @@ public class JavassistProxyFactory extends AbstractProxyFactory {
      * Wrapper 用于“包裹”目标类，Wrapper 是一个抽象类，仅可通过 getWrapper(Class) 方法创建子类。
      * 在创建 Wrapper 子类的过程中，子类代码生成逻辑会对 getWrapper 方法传入的 Class 对象进行解析，拿到诸如类方法，类成员变量等信息。
      * 以及生成 invokeMethod 方法代码和其他一些方法代码。代码生成完毕后，通过 Javassist 生成 Class 对象，最后再通过反射创建 Wrapper 实例。
+     *
      * @param proxy Service对象
-     * @param type Service 接口类型
-     * @param url Service 对应的URL地址
+     * @param type  Service 接口类型
+     * @param url   Service 对应的URL地址
      * @param <T>
      * @return
      */

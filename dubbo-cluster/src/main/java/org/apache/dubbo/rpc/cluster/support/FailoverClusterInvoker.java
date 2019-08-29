@@ -54,6 +54,7 @@ public class FailoverClusterInvoker<T> extends AbstractClusterInvoker<T> {
      * FailoverClusterInvoker 的 doInvoke 方法首先是获取重试次数，然后根据重试次数进行循环调用，失败后进行重试。
      * 在 for 循环内，首先是通过负载均衡组件选择一个 Invoker，然后再通过这个 Invoker 的 invoke 方法进行远程调用。
      * 如果失败了，记录下异常，并进行重试。重试时会再次调用父类的 list 方法列举 Invoker。整个流程大致如此，
+     *
      * @param invocation
      * @param invokers
      * @param loadbalance

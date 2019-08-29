@@ -32,7 +32,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * AbstractRegistryService
- *
  */
 public abstract class AbstractRegistryService implements RegistryService {
 

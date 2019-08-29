@@ -42,7 +42,7 @@ import static org.junit.Assert.assertTrue;
 
 public class InjvmProtocolTest {
 
-    static{
+    static {
         InjvmProtocol injvm = InjvmProtocol.getInjvmProtocol();
     }
 
@@ -69,7 +69,7 @@ public class InjvmProtocolTest {
         assertEquals(service.getSize(new String[]{"", "", ""}), 3);
         service.invoke("injvm://127.0.0.1/TestService", "invoke");
 
-        InjvmInvoker injvmInvoker = new InjvmInvoker(DemoService.class, URL.valueOf("injvm://127.0.0.1/TestService"),null,new HashMap<String, Exporter<?>>());
+        InjvmInvoker injvmInvoker = new InjvmInvoker(DemoService.class, URL.valueOf("injvm://127.0.0.1/TestService"), null, new HashMap<String, Exporter<?>>());
         assertFalse(injvmInvoker.isAvailable());
 
     }
@@ -92,7 +92,7 @@ public class InjvmProtocolTest {
         url = URL.valueOf("fake://127.0.0.1/TestService").addParameter(Constants.SCOPE_KEY, Constants.SCOPE_LOCAL);
         assertTrue(InjvmProtocol.getInjvmProtocol().isInjvmRefer(url));
 
-        url = URL.valueOf("fake://127.0.0.1/TestService").addParameter(Constants.LOCAL_PROTOCOL,true);
+        url = URL.valueOf("fake://127.0.0.1/TestService").addParameter(Constants.LOCAL_PROTOCOL, true);
         assertTrue(InjvmProtocol.getInjvmProtocol().isInjvmRefer(url));
 
         url = URL.valueOf("fake://127.0.0.1/TestService").addParameter(Constants.SCOPE_KEY, Constants.SCOPE_REMOTE);

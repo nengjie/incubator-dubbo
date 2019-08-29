@@ -59,6 +59,7 @@ public class ReferenceConfigTest {
             demoService.unexport();
         }
     }
+
     /**
      * unit test for dubbo-1765
      */

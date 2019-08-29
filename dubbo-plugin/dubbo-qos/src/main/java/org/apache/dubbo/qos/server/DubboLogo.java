@@ -18,7 +18,7 @@ package org.apache.dubbo.qos.server;
 
 public class DubboLogo {
     public static final String dubbo =
-                    "   ___   __  __ ___   ___   ____     \n" +
+            "   ___   __  __ ___   ___   ____     \n" +
                     "  / _ \\ / / / // _ ) / _ ) / __ \\  \n" +
                     " / // // /_/ // _  |/ _  |/ /_/ /    \n" +
                     "/____/ \\____//____//____/ \\____/   \n";

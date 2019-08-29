@@ -22,7 +22,6 @@ import org.apache.dubbo.rpc.cluster.RouterFactory;
 
 /**
  * ConditionRouterFactory
- *
  */
 public class ConditionRouterFactory implements RouterFactory {
 

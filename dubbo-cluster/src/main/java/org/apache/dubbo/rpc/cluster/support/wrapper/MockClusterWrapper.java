@@ -23,7 +23,6 @@ import org.apache.dubbo.rpc.cluster.Directory;
 
 /**
  * mock impl
- *
  */
 public class MockClusterWrapper implements Cluster {
 

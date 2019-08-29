@@ -20,9 +20,9 @@ import org.apache.dubbo.demo.DemoService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * @Description:    服务消费者
- * @Author:         nengjie
- * @CreateDate:     2018年12月19日23:25:29
+ * @Description: 服务消费者
+ * @Author: nengjie
+ * @CreateDate: 2018年12月19日23:25:29
  */
 public class Consumer {
 

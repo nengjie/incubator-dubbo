@@ -43,7 +43,8 @@ public class RestProtocolTest {
         ApplicationModel.initProviderModel(url.getServiceKey(), providerModel);
 
         Exporter<RestService> exporter = protocol.export(proxyFactory.getInvoker(server, RestService.class, url));
-        Invoker<RestService> invoker = protocol.refer(RestService.class, url);        Assert.assertFalse(server.isCalled());
+        Invoker<RestService> invoker = protocol.refer(RestService.class, url);
+        Assert.assertFalse(server.isCalled());
 
         RestService client = proxyFactory.getProxy(invoker);
         String result = client.sayHello("haha");

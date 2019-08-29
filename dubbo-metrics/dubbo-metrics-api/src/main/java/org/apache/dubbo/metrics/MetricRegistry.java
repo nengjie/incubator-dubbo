@@ -49,7 +49,7 @@ public abstract class MetricRegistry implements MetricSet {
     /**
      * Given a metric set, registers them.
      *
-     * @param metrics    a set of metrics
+     * @param metrics a set of metrics
      * @throws IllegalArgumentException if any of the names are already registered
      */
     public abstract void registerAll(MetricSet metrics) throws IllegalArgumentException;
@@ -73,6 +73,7 @@ public abstract class MetricRegistry implements MetricSet {
 
     /**
      * Create a FastCompass with given name
+     *
      * @param name the name of the metric
      * @return a FastCompass instance
      */
@@ -110,7 +111,7 @@ public abstract class MetricRegistry implements MetricSet {
     /**
      * Returns a map of all the gauges in the registry and their names which match the given filter.
      *
-     * @param filter    the metric filter to match
+     * @param filter the metric filter to match
      * @return all the gauges in the registry
      */
     public abstract Map<MetricName, Gauge> getGauges(MetricFilter filter);
@@ -126,7 +127,7 @@ public abstract class MetricRegistry implements MetricSet {
      * Returns a map of all the counters in the registry and their names which match the given
      * filter.
      *
-     * @param filter    the metric filter to match
+     * @param filter the metric filter to match
      * @return all the counters in the registry
      */
     public abstract Map<MetricName, Counter> getCounters(MetricFilter filter);
@@ -141,13 +142,14 @@ public abstract class MetricRegistry implements MetricSet {
     /**
      * Returns a map of all the compasses in the registry and their names which match the given filter.
      *
-     * @param filter    the metric filter to match
+     * @param filter the metric filter to match
      * @return all the compasses in the registry
      */
     public abstract Map<MetricName, Compass> getCompasses(MetricFilter filter);
 
     /**
      * Returns a map of all the metrics in the registry and their names which match the given filter
+     *
      * @param filter the metric filter to match
      * @return all the metrics in the registry
      */

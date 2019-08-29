@@ -30,9 +30,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * @Description:    Zookeeper 客户端抽象类
- * @Author:         nengjie
- * @CreateDate:     2018年12月24日23:28:15
+ * @Description: Zookeeper 客户端抽象类
+ * @Author: nengjie
+ * @CreateDate: 2018年12月24日23:28:15
  */
 public abstract class AbstractZookeeperClient<TargetChildListener> implements ZookeeperClient {
 
@@ -50,10 +50,10 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     /**
      * ChildListener 集合
-     *
+     * <p>
      * ConcurrentMap  string 节点的路径
-     *                ConcurrentMap   ChildListener 对象
-     *                                TargetChildListener 监听器具体对象。不同 Zookeeper 客户端，实现会不同。
+     * ConcurrentMap   ChildListener 对象
+     * TargetChildListener 监听器具体对象。不同 Zookeeper 客户端，实现会不同。
      */
     private final ConcurrentMap<String, ConcurrentMap<ChildListener, TargetChildListener>> childListeners = new ConcurrentHashMap<String, ConcurrentMap<ChildListener, TargetChildListener>>();
 
@@ -73,6 +73,7 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     /**
      * 通过递归创建当前节点的上一级路径，然后再根据 ephemeral 的值决定创建临时还是持久节点。
+     *
      * @param path
      * @param ephemeral
      */
@@ -148,6 +149,7 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     /**
      * 改变状态
+     *
      * @param state 状态
      */
     protected void stateChanged(int state) {

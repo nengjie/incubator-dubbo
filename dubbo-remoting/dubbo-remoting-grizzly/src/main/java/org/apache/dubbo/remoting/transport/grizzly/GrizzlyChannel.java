@@ -35,8 +35,6 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * GrizzlyChannel
- *
- *
  */
 final class GrizzlyChannel extends AbstractChannel {
 

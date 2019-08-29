@@ -40,6 +40,7 @@ import static org.springframework.beans.factory.support.BeanDefinitionBuilder.ro
 
 /**
  * Dubbo Bean Registrar
+ *
  * @see ImportBeanDefinitionRegistrar
  * @see CompatibleServiceAnnotationBeanPostProcessor
  * @see CompatibleReferenceAnnotationBeanPostProcessor

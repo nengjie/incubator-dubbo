@@ -101,8 +101,8 @@ public class MergeableClusterInvoker<T> implements Invoker<T> {
             try {
                 Result r = future.get(timeout, TimeUnit.MILLISECONDS);
                 if (r.hasException()) {
-                    log.error("Invoke " + getGroupDescFromServiceKey(entry.getKey()) + 
-                                    " failed: " + r.getException().getMessage(), 
+                    log.error("Invoke " + getGroupDescFromServiceKey(entry.getKey()) +
+                                    " failed: " + r.getException().getMessage(),
                             r.getException());
                 } else {
                     resultList.add(r);
@@ -128,7 +128,7 @@ public class MergeableClusterInvoker<T> implements Invoker<T> {
             try {
                 method = returnType.getMethod(merger, returnType);
             } catch (NoSuchMethodException e) {
-                throw new RpcException("Can not merge result because missing method [ " + merger + " ] in class [ " + 
+                throw new RpcException("Can not merge result because missing method [ " + merger + " ] in class [ " +
                         returnType.getClass().getName() + " ]");
             }
             if (!Modifier.isPublic(method.getModifiers())) {

@@ -43,6 +43,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
 
     /**
      * CuratorZookeeperClient 构造方法主要用于创建和启动 CuratorFramework 实例。
+     *
      * @param url
      */
     public CuratorZookeeperClient(URL url) {
@@ -132,6 +133,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
         }
         return false;
     }
+
     @Override
     public boolean isConnected() {
         return client.getZookeeperClient().isConnected();

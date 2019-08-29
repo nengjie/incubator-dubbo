@@ -100,7 +100,8 @@ public abstract class Wrapper {
 
     /**
      * get wrapper.
-     *  根据指定类，获得 Wrapper 对象。
+     * 根据指定类，获得 Wrapper 对象。
+     *
      * @param c Class instance.
      * @return Wrapper instance(not null).
      */
@@ -128,14 +129,15 @@ public abstract class Wrapper {
 
     /**
      * 创建 Wrapper
-     *
+     * <p>
      * 首先我们把目光移到分割线1之上的代码，这段代码主要用于进行一些初始化操作。比如创建 c1、c2、c3 以及 pts、ms、mns 等变量，以及向 c1、c2、c3 中添加方法定义和类型转换代码。
      * 接下来是分割线1到分割线2之间的代码，这段代码用于为 public 级别的字段生成条件判断取值与赋值代码。这段代码不是很难看懂，就不多说了。继续向下看，
      * 分割线2和分隔线3之间的代码用于为定义在当前类中的方法生成判断语句，和方法调用语句。因为需要对方法重载进行校验，因此到这这段代码看起来有点复杂。不过耐心开一下，也不是很难理解。
      * 接下来是分割线3和分隔线4之间的代码，这段代码用于处理 getter、setter 以及以 is/has/can 开头的方法。
-     *              处理方式是通过正则表达式获取方法类型（get/set/is/...），以及属性名。之后为属性名生成判断语句，然后为方法生成调用语句。
+     * 处理方式是通过正则表达式获取方法类型（get/set/is/...），以及属性名。之后为属性名生成判断语句，然后为方法生成调用语句。
      * 最后我们再来看一下分隔线4以下的代码，这段代码通过 ClassGenerator 为刚刚生成的代码构建 Class 类，并通过反射创建对象。ClassGenerator 是 Dubbo 自己封装的，
      * 该类的核心是 toClass() 的重载方法 toClass(ClassLoader, ProtectionDomain)，该方法通过 javassist 构建 Class。
+     *
      * @param c
      * @return
      */

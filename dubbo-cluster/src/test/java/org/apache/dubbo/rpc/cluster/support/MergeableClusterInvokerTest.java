@@ -106,7 +106,7 @@ public class MergeableClusterInvokerTest {
         given(invocation.getParameterTypes()).willReturn(new Class<?>[]{});
         given(invocation.getArguments()).willReturn(new Object[]{});
         given(invocation.getAttachments()).willReturn(new HashMap<String, String>())
-                ;
+        ;
         given(invocation.getInvoker()).willReturn(firstInvoker);
 
         firstInvoker = (Invoker) Proxy.newProxyInstance(getClass().getClassLoader(), new Class<?>[]{Invoker.class}, new InvocationHandler() {
@@ -187,23 +187,23 @@ public class MergeableClusterInvokerTest {
         given(invocation.getParameterTypes()).willReturn(
                 new Class<?>[]{String.class, List.class});
         given(invocation.getArguments()).willReturn(new Object[]{menu, menuItems})
-                ;
+        ;
         given(invocation.getAttachments()).willReturn(new HashMap<String, String>())
-                ;
+        ;
         given(invocation.getInvoker()).willReturn(firstInvoker);
 
         given(firstInvoker.getUrl()).willReturn(
                 url.addParameter(Constants.GROUP_KEY, "first"));
         given(firstInvoker.getInterface()).willReturn(MenuService.class);
         given(firstInvoker.invoke(invocation)).willReturn(new RpcResult())
-                ;
+        ;
         given(firstInvoker.isAvailable()).willReturn(true);
 
         given(secondInvoker.getUrl()).willReturn(
                 url.addParameter(Constants.GROUP_KEY, "second"));
         given(secondInvoker.getInterface()).willReturn(MenuService.class);
         given(secondInvoker.invoke(invocation)).willReturn(new RpcResult())
-                ;
+        ;
         given(secondInvoker.isAvailable()).willReturn(true);
 
         given(directory.list(invocation)).willReturn(new ArrayList() {

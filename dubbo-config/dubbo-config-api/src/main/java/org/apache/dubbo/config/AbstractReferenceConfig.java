@@ -24,6 +24,7 @@ import org.apache.dubbo.rpc.support.ProtocolUtils;
 /**
  * AbstractConsumerConfig
  * 抽象引用配置类
+ *
  * @export
  * @see org.apache.dubbo.config.ReferenceConfig
  */

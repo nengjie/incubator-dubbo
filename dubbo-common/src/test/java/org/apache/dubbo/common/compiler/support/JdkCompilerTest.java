@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Method;
 
-public class JdkCompilerTest extends JavaCodeTest{
+public class JdkCompilerTest extends JavaCodeTest {
 
     @Test
     public void test_compileJavaClass() throws Exception {

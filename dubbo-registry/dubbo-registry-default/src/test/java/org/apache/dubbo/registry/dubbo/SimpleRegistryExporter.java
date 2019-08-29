@@ -30,7 +30,6 @@ import java.net.ServerSocket;
 
 /**
  * SimpleRegistryExporter
- *
  */
 public class SimpleRegistryExporter {
 

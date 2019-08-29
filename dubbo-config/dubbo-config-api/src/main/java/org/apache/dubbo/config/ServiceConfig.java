@@ -199,7 +199,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
      * 2.校验 ServiceConfig 对象的配置项。
      * 3.使用 ServiceConfig 对象，生成 Dubbo URL 对象数组。
      * 4.使用 Dubbo URL 对象，暴露服务。
-     *
+     * <p>
      * export 方法对两项配置进行了检查，并根据配置执行相应的动作。
      * 首先是 export 配置，这个配置决定了是否导出服务。有时候我们只是想本地启动服务进行一些调试工作，
      * 我们并不希望把本地启动的服务暴露出去给别人调用。此时，我们可通过配置 export 禁止服务导出，比如：<dubbo:provider export="false" />
@@ -231,7 +231,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     /**
      * 暴露服务
-     *
+     * <p>
      * 配置检查的相关分析
      * 1.检测 <dubbo:service> 标签的 interface 属性合法性，不合法则抛出异常
      * 2.检测 ProviderConfig、ApplicationConfig 等核心配置类对象是否为空，若为空，则尝试从其他配置类对象中获取相应的实例。
@@ -417,7 +417,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     /**
      * Dubbo 允许我们使用不同的协议导出服务，也允许我们向多个注册中心注册服务。Dubbo 在 doExportUrls 方法中对多协议，多注册中心进行了支持。
-     *
+     * <p>
      * 通过 loadRegistries 加载注册中心链接，然后再遍历 ProtocolConfig 集合导出每个服务。并在导出服务的过程中，将服务注册到注册中心。
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -432,13 +432,14 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     /**
      * 暴露服务
-     *
+     * <p>
      * 配置检查完毕后，紧接着要做的事情是根据配置，以及其他一些信息组装 URL。
      * 前面说过，URL 是 Dubbo 配置的载体，通过 URL 可让 Dubbo 的各种配置在各个模块之间传递。URL 之于 Dubbo，犹如水之于鱼，非常重要。
-     *
+     * <p>
      * 将一些信息，比如版本、时间戳、方法名以及各种配置对象的字段信息放入到 map 中，map 中的内容将作为 URL 的查询字符串。
      * 构建好 map 后，紧接着是获取上下文路径、主机名以及端口号等信息。最后将 map 和主机名等数据传给 URL 构造方法创建 URL 对象。需要注意的是，
      * 这里出现的 URL 并非 java.net.URL，而是 com.alibaba.dubbo.common.URL。
+     *
      * @param protocolConfig
      * @param registryURLs
      */
@@ -482,24 +483,24 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 }
                 // 获取 ArgumentConfig 列表
                 /**for (遍历 ArgumentConfig 列表) {
-                        if (type 不为 null，也不为空串) {    // 分支1
-                            1. 通过反射获取 interfaceClass 的方法列表
-                            for (遍历方法列表) {
-                                1. 比对方法名，查找目标方法
-                                2. 通过反射获取目标方法的参数类型数组 argtypes
-                                if (index != -1) {    // 分支2
-                                    1. 从 argtypes 数组中获取下标 index 处的元素 argType
-                                    2. 检测 argType 的名称与 ArgumentConfig 中的 type 属性是否一致
-                                    3. 添加 ArgumentConfig 字段信息到 map 中，或抛出异常
-                                } else {    // 分支3
-                                    1. 遍历参数类型数组 argtypes，查找 argument.type 类型的参数
-                                    2. 添加 ArgumentConfig 字段信息到 map 中
-                                }
-                            }
-                        } else if (index != -1) {    // 分支4
-                            1. 添加 ArgumentConfig 字段信息到 map 中
-                        }
-}
+                 if (type 不为 null，也不为空串) {    // 分支1
+                 1. 通过反射获取 interfaceClass 的方法列表
+                 for (遍历方法列表) {
+                 1. 比对方法名，查找目标方法
+                 2. 通过反射获取目标方法的参数类型数组 argtypes
+                 if (index != -1) {    // 分支2
+                 1. 从 argtypes 数组中获取下标 index 处的元素 argType
+                 2. 检测 argType 的名称与 ArgumentConfig 中的 type 属性是否一致
+                 3. 添加 ArgumentConfig 字段信息到 map 中，或抛出异常
+                 } else {    // 分支3
+                 1. 遍历参数类型数组 argtypes，查找 argument.type 类型的参数
+                 2. 添加 ArgumentConfig 字段信息到 map 中
+                 }
+                 }
+                 } else if (index != -1) {    // 分支4
+                 1. 添加 ArgumentConfig 字段信息到 map 中
+                 }
+                 }
                  *
                  */
                 List<ArgumentConfig> arguments = method.getArguments();
@@ -686,10 +687,11 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     /**
      * 导出服务到本地
-     *
+     * <p>
      * exportLocal 方法比较简单，首先根据 URL 协议头决定是否导出服务。
      * 若需导出，则创建一个新的 URL 并将协议头、主机名以及端口设置成新的值。然后创建 Invoker，
      * 并调用 InjvmProtocol 的 export 方法导出服务。
+     *
      * @param url
      */
     @SuppressWarnings({"unchecked", "rawtypes"})

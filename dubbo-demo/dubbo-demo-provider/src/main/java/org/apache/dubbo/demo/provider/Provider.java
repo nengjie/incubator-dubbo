@@ -26,9 +26,9 @@ public class Provider {
      * before running your application.
      */
     /**
-     * @Description:    加载 Spring 配置
-     * @Author:         nengjie
-     * @CreateDate:     2018年12月19日23:20:04
+     * @Description: 加载 Spring 配置
+     * @Author: nengjie
+     * @CreateDate: 2018年12月19日23:20:04
      */
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});

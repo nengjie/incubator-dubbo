@@ -26,48 +26,55 @@ public interface Compass extends Metric {
 
     /**
      * record a method invocation with execution time and sub-categories
-     * @param duration must be milliseconds
+     *
+     * @param duration    must be milliseconds
      * @param subCategory all the sub-categories should be orthogonal,
      *                    which will be added up to the total number of method invocations
      */
     void record(long duration, String subCategory);
-    
+
     /**
      * return method count per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getMethodCountPerCategory();
 
     /**
      * return method count per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getMethodCountPerCategory(long startTime);
 
     /**
      * return method execution time per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getMethodRtPerCategory();
 
     /**
      * return method execution time per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getMethodRtPerCategory(long startTime);
 
     /**
      * return method execution time and count per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getCountAndRtPerCategory();
-    
+
     /**
      * return method execution time and count per bucket per category
+     *
      * @return
      */
     Map<String, Map<Long, Long>> getCountAndRtPerCategory(long startTime);
-    
+
     /**
      * @return the bucket interval
      */

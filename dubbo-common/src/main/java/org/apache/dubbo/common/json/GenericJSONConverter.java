@@ -402,16 +402,16 @@ public class GenericJSONConverter implements JSONConverter {
             @Override
             public Object decode(Object jv) throws IOException {
                 if (jv instanceof String) {
-                    String[] items = ((String)jv).split("_");
-                    if(items.length == 1){
+                    String[] items = ((String) jv).split("_");
+                    if (items.length == 1) {
                         return new Locale(items[0]);
                     }
-                    if(items.length == 2){
+                    if (items.length == 2) {
                         return new Locale(items[0], items[1]);
                     }
                     return new Locale(items[0], items[1], items[2]);
                 }
-                return (Locale)null;
+                return (Locale) null;
             }
         };
         GlobalDecoderMap.put(Locale.class, d);
@@ -468,7 +468,7 @@ public class GenericJSONConverter implements JSONConverter {
                 }
             }
             jb.arrayEnd();
-        } else if(obj instanceof Locale) {
+        } else if (obj instanceof Locale) {
             jb.valueString(obj.toString());
         } else {
             jb.objectBegin();

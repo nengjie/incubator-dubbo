@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Round robin load balance.
  * 加权轮询负载均衡的实现 RoundRobinLoadBalance
- *
+ * <p>
  * 什么是加权轮询。这里从最简单的轮询开始讲起，所谓轮询是指将请求轮流分配给每台服务器。
  * 举个例子，我们有三台服务器 A、B、C。我们将第一个请求分配给服务器 A，第二个请求分配给服务器 B，第三个请求分配给服务器 C，第四个请求再次分配给服务器 A。这个过程就叫做轮询。
  * 轮询是一种无状态负载均衡算法，实现简单，适用于每台服务器性能相近的场景下。
@@ -43,29 +43,35 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class RoundRobinLoadBalance extends AbstractLoadBalance {
     public static final String NAME = "roundrobin";
-    
+
     private static int RECYCLE_PERIOD = 60000;
-    
+
     protected static class WeightedRoundRobin {
         private int weight;
         private AtomicLong current = new AtomicLong(0);
         private long lastUpdate;
+
         public int getWeight() {
             return weight;
         }
+
         public void setWeight(int weight) {
             this.weight = weight;
             current.set(0);
         }
+
         public long increaseCurrent() {
             return current.addAndGet(weight);
         }
+
         public void sel(int total) {
             current.addAndGet(-1 * total);
         }
+
         public long getLastUpdate() {
             return lastUpdate;
         }
+
         public void setLastUpdate(long lastUpdate) {
             this.lastUpdate = lastUpdate;
         }
@@ -73,12 +79,12 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
 
     private ConcurrentMap<String, ConcurrentMap<String, WeightedRoundRobin>> methodWeightMap = new ConcurrentHashMap<String, ConcurrentMap<String, WeightedRoundRobin>>();
     private AtomicBoolean updateLock = new AtomicBoolean();
-    
+
     /**
      * get invoker addr list cached for specified invocation
      * <p>
      * <b>for unit test only</b>
-     * 
+     *
      * @param invokers
      * @param invocation
      * @return
@@ -91,7 +97,7 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
         }
         return null;
     }
-    
+
     @Override
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
 

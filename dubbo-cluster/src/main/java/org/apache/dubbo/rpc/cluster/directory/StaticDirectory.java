@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * StaticDirectory
- *  StaticDirectory 即静态服务目录，顾名思义，它内部存放的 Invoker 是不会变动的。所以，理论上它和不可变 List 的功能很相似。
+ * StaticDirectory 即静态服务目录，顾名思义，它内部存放的 Invoker 是不会变动的。所以，理论上它和不可变 List 的功能很相似。
  */
 public class StaticDirectory<T> extends AbstractDirectory<T> {
 
@@ -61,6 +61,7 @@ public class StaticDirectory<T> extends AbstractDirectory<T> {
 
     /**
      * 检测服务目录是否可用
+     *
      * @return
      */
     @Override

@@ -51,9 +51,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * AbstractRegistry. (SPI, Prototype, ThreadSafe)
- *
- *  通用的注册、订阅、查询、通知等方法。
- *  持久化注册数据到文件，以 properties 格式存储。应用于，重启时，无法从注册中心加载服务提供者列表等信息时，从该文件中读取。
+ * <p>
+ * 通用的注册、订阅、查询、通知等方法。
+ * 持久化注册数据到文件，以 properties 格式存储。应用于，重启时，无法从注册中心加载服务提供者列表等信息时，从该文件中读取。
  */
 public abstract class AbstractRegistry implements Registry {
 
@@ -153,6 +153,7 @@ public abstract class AbstractRegistry implements Registry {
 
     /**
      * 订阅 URL 的监听器集合
+     *
      * @return
      */
     public Map<URL, Set<NotifyListener>> getSubscribed() {
@@ -298,7 +299,8 @@ public abstract class AbstractRegistry implements Registry {
     /**
      * 从实现上，我们可以看出，并未向注册中心发起注册，
      * 仅仅是添加到 registered 中，进行状态的维护。实际上，真正的实现在 FailbackRegistry 类中。
-     * @param url  Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
+     *
+     * @param url Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      */
     @Override
     public void register(URL url) {
@@ -360,6 +362,7 @@ public abstract class AbstractRegistry implements Registry {
 
     /**
      * 在注册中心断开，重连成功，调用 #recover() 方法，进行恢复注册和订阅。
+     *
      * @throws Exception
      */
     protected void recover() throws Exception {
@@ -415,12 +418,13 @@ public abstract class AbstractRegistry implements Registry {
 
     /**
      * 通知监听器，URL 变化结果。
-     *   注意两点：
-     *   1.向注册中心发起订阅后，会获取到全量数据，此时会被调用 #notify(...) 方法，即 Registry 获取到了全量数据。
-     *   2.每次注册中心发生变更时，会调用 #notify(...) 方法，虽然变化是增量，调用这个方法的调用方，已经进行处理，传入的 urls 依然是全量的。
+     * 注意两点：
+     * 1.向注册中心发起订阅后，会获取到全量数据，此时会被调用 #notify(...) 方法，即 Registry 获取到了全量数据。
+     * 2.每次注册中心发生变更时，会调用 #notify(...) 方法，虽然变化是增量，调用这个方法的调用方，已经进行处理，传入的 urls 依然是全量的。
+     * <p>
+     * 这里的逻辑需要仔细查看
+     * // todo nengjie
      *
-     *   这里的逻辑需要仔细查看
-     *   // todo nengjie
      * @param url
      * @param listener
      * @param urls

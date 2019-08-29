@@ -27,10 +27,11 @@ import java.util.Map;
  * @see org.apache.dubbo.rpc.Invoker#invoke(Invocation)
  * @see org.apache.dubbo.rpc.RpcResult
  */
+
 /**
- * @Description:    会话域-持有调用过程中返回值，异常等。
- * @Author:         nengjie
- * @CreateDate:     2018年12月20日22:41:35
+ * @Description: 会话域-持有调用过程中返回值，异常等。
+ * @Author: nengjie
+ * @CreateDate: 2018年12月20日22:41:35
  */
 public interface Result extends Serializable {
 

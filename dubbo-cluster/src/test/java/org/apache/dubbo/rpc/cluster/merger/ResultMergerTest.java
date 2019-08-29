@@ -169,12 +169,12 @@ public class ResultMergerTest {
      */
     @Test
     public void testListMerger() throws Exception {
-        List<Object> list1 = new ArrayList<Object>(){{
+        List<Object> list1 = new ArrayList<Object>() {{
             add(null);
             add("1");
-            add("2"); 
+            add("2");
         }};
-        List<Object> list2 = new ArrayList<Object>(){{
+        List<Object> list2 = new ArrayList<Object>() {{
             add("3");
             add("4");
         }};

@@ -27,7 +27,6 @@ import java.io.OutputStream;
 
 /**
  * TODO for now kryo serialization doesn't deny classes that don't implement the serializable interface
- *
  */
 public class KryoSerialization implements Serialization {
 

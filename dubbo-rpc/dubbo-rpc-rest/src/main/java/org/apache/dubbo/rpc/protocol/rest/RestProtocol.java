@@ -61,7 +61,7 @@ public class RestProtocol extends AbstractProxyProtocol {
 
     private static final int HTTPCLIENTCONNECTIONMANAGER_MAXPERROUTE = 20;
     private static final int HTTPCLIENTCONNECTIONMANAGER_MAXTOTAL = 20;
-    private static final int HTTPCLIENT_KEEPALIVEDURATION = 30*1000;
+    private static final int HTTPCLIENT_KEEPALIVEDURATION = 30 * 1000;
     private static final int HTTPCLIENTCONNECTIONMANAGER_CLOSEWAITTIME_MS = 1000;
     private static final int HTTPCLIENTCONNECTIONMANAGER_CLOSEIDLETIME_S = 30;
 
@@ -239,7 +239,7 @@ public class RestProtocol extends AbstractProxyProtocol {
 
     protected String getContextPath(URL url) {
         String contextPath = url.getPath();
-        return contextPath.endsWith("/") ? contextPath.substring(0,contextPath.length()-1) : contextPath;
+        return contextPath.endsWith("/") ? contextPath.substring(0, contextPath.length() - 1) : contextPath;
     }
 
     protected class ConnectionMonitor extends Thread {

@@ -251,7 +251,7 @@ public class JValidator implements Validator {
         Set<ConstraintViolation<?>> violations = new HashSet<ConstraintViolation<?>>();
         Method method = clazz.getMethod(methodName, parameterTypes);
         Class<?>[] methodClasses = null;
-        if (method.isAnnotationPresent(MethodValidated.class)){
+        if (method.isAnnotationPresent(MethodValidated.class)) {
             methodClasses = method.getAnnotation(MethodValidated.class).value();
             groups.addAll(Arrays.asList(methodClasses));
         }
@@ -264,7 +264,7 @@ public class JValidator implements Validator {
 
         Object parameterBean = getMethodParameterBean(clazz, method, arguments);
         if (parameterBean != null) {
-            violations.addAll(validator.validate(parameterBean, classgroups ));
+            violations.addAll(validator.validate(parameterBean, classgroups));
         }
 
         for (Object arg : arguments) {

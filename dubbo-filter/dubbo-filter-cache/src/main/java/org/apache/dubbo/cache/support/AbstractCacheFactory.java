@@ -44,8 +44,9 @@ public abstract class AbstractCacheFactory implements CacheFactory {
     private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
 
     /**
-     *  Takes URL and invocation instance and return cache instance for a given url.
-     * @param url url of the method
+     * Takes URL and invocation instance and return cache instance for a given url.
+     *
+     * @param url        url of the method
      * @param invocation invocation context.
      * @return Instance of cache store used as storage for caching return values.
      */
@@ -63,6 +64,7 @@ public abstract class AbstractCacheFactory implements CacheFactory {
 
     /**
      * Takes url as an method argument and return new instance of cache store implemented by AbstractCacheFactory subclass.
+     *
      * @param url url of the method
      * @return Create and return new instance of cache store used as storage for caching return values.
      */

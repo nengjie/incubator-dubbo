@@ -62,7 +62,7 @@ public class RedisProtocolTest {
         if (name.getMethodName().equals("testAuthRedis") || name.getMethodName().equals("testWrongAuthRedis")) {
             String password = "123456";
             this.redisServer = RedisServer.builder().port(redisPort).setting("requirepass " + password).build();
-            this.registryUrl = URL.valueOf("redis://username:"+password+"@localhost:"+redisPort+"?db.index=0");
+            this.registryUrl = URL.valueOf("redis://username:" + password + "@localhost:" + redisPort + "?db.index=0");
         } else {
             this.redisServer = RedisServer.builder().port(redisPort).build();
             this.registryUrl = URL.valueOf("redis://localhost:" + redisPort);
@@ -171,7 +171,7 @@ public class RedisProtocolTest {
         assertThat(value, is("newValue"));
 
         // jedis gets the result comparison
-        JedisPool pool = new JedisPool(new GenericObjectPoolConfig(), "localhost", registryUrl.getPort(), 2000, password, database, (String)null);
+        JedisPool pool = new JedisPool(new GenericObjectPoolConfig(), "localhost", registryUrl.getPort(), 2000, password, database, (String) null);
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
@@ -180,7 +180,7 @@ public class RedisProtocolTest {
             ObjectInput oin = serialization.deserialize(this.registryUrl, new ByteArrayInputStream(valueByte));
             String actual = (String) oin.readObject();
             assertThat(value, is(actual));
-        } catch(Exception e) {
+        } catch (Exception e) {
             Assert.fail("jedis gets the result comparison is error!");
         } finally {
             if (jedis != null) {
@@ -211,7 +211,7 @@ public class RedisProtocolTest {
             assertThat(value, is(nullValue()));
         } catch (RpcException e) {
             if (e.getCause() instanceof JedisConnectionException && e.getCause().getCause() instanceof JedisDataException) {
-                Assert.assertEquals("ERR invalid password" , e.getCause().getCause().getMessage());
+                Assert.assertEquals("ERR invalid password", e.getCause().getCause().getMessage());
             } else {
                 Assert.fail("no invalid password exception!");
             }

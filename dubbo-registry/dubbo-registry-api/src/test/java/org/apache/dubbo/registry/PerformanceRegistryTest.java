@@ -27,7 +27,6 @@ import org.junit.Test;
 
 /**
  * RegistryPerformanceTest
- *
  */
 public class PerformanceRegistryTest extends TestCase {
 

@@ -103,7 +103,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
 
     /**
      * 校验 RegistryConfig 配置数组。
-     *
+     * <p>
      * 该方法会初始化 RegistryConfig 的配置属性。
      */
     protected void checkRegistry() {
@@ -177,7 +177,6 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
      * 3.构建注册中心链接列表
      * 4.遍历链接列表，并根据条件决定是否将其添加到 registryList 中
      *
-     *
      * @param provider
      * @return
      */
@@ -246,6 +245,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
 
     /**
      * 加载监控中心 URL
+     *
      * @param registryURL
      * @return
      */
@@ -316,6 +316,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
      * 校验接口和方法
      * 1. 接口类非空，并是接口
      * 2. 方法在接口中已定义
+     *
      * @param interfaceClass
      * @param methods
      */

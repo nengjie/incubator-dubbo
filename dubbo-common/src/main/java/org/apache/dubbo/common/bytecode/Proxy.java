@@ -72,10 +72,11 @@ public abstract class Proxy {
 
     /**
      * Get proxy.
-     *
+     * <p>
      * 大家在阅读这段代码时，要搞清楚 ccp 和 ccm 的用途，不然会被搞晕。ccp 用于为服务接口生成代理类，
      * 比如我们有一个 DemoService 接口，这个接口代理类就是由 ccp 生成的。
      * ccm 则是用于为 org.apache.dubbo.common.bytecode.Proxy 抽象类生成子类，主要是实现 Proxy 类的抽象方法。
+     *
      * @param cl  class loader.
      * @param ics interface class array.
      * @return Proxy instance.

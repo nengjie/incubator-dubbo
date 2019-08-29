@@ -22,7 +22,6 @@ import org.apache.dubbo.registry.support.AbstractRegistryFactory;
 
 /**
  * RedisRegistryFactory
- *
  */
 public class RedisRegistryFactory extends AbstractRegistryFactory {
 

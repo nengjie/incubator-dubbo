@@ -1014,36 +1014,36 @@ public class RegistryDirectoryTest {
         List<Invoker<DemoService>> invokers = registryDirectory.list(invocation);
         Assert.assertEquals(2, invokers.size());
     }
-    
+
     @Test
     public void test_Notified_withGroupFilter() {
-    	URL directoryUrl = noMeaningUrl.addParameterAndEncoded(Constants.REFER_KEY, "interface" + service + "&group=group1,group2");
-    	RegistryDirectory directory = this.getRegistryDirectory(directoryUrl);
-    	URL provider1 = URL.valueOf("dubbo://10.134.108.1:20880?methods=getXXX&group=group1&mock=false");
-    	URL provider2 = URL.valueOf("dubbo://10.134.108.1:20880?methods=getXXX&group=group2&mock=false");
-    	
-    	List<URL> providers = new ArrayList<>();
-    	providers.add(provider1);
-    	providers.add(provider2);
-    	directory.notify(providers); 
-    	
-    	invocation = new RpcInvocation();
-    	invocation.setMethodName("getXXX");
-    	List<Invoker<DemoService>> invokers = directory.list(invocation);
-    	
-    	Assert.assertEquals(2, invokers.size());
-    	Assert.assertTrue(invokers.get(0) instanceof MockClusterInvoker);
-    	Assert.assertTrue(invokers.get(1) instanceof MockClusterInvoker);
-    	
-    	directoryUrl = noMeaningUrl.addParameterAndEncoded(Constants.REFER_KEY, "interface" + service + "&group=group1");
-    	directory = this.getRegistryDirectory(directoryUrl);
-    	directory.notify(providers);
-    	
-    	invokers = directory.list(invocation);
-    	
-    	Assert.assertEquals(2, invokers.size());
-    	Assert.assertFalse(invokers.get(0) instanceof MockClusterInvoker);
-    	Assert.assertFalse(invokers.get(1) instanceof MockClusterInvoker);
+        URL directoryUrl = noMeaningUrl.addParameterAndEncoded(Constants.REFER_KEY, "interface" + service + "&group=group1,group2");
+        RegistryDirectory directory = this.getRegistryDirectory(directoryUrl);
+        URL provider1 = URL.valueOf("dubbo://10.134.108.1:20880?methods=getXXX&group=group1&mock=false");
+        URL provider2 = URL.valueOf("dubbo://10.134.108.1:20880?methods=getXXX&group=group2&mock=false");
+
+        List<URL> providers = new ArrayList<>();
+        providers.add(provider1);
+        providers.add(provider2);
+        directory.notify(providers);
+
+        invocation = new RpcInvocation();
+        invocation.setMethodName("getXXX");
+        List<Invoker<DemoService>> invokers = directory.list(invocation);
+
+        Assert.assertEquals(2, invokers.size());
+        Assert.assertTrue(invokers.get(0) instanceof MockClusterInvoker);
+        Assert.assertTrue(invokers.get(1) instanceof MockClusterInvoker);
+
+        directoryUrl = noMeaningUrl.addParameterAndEncoded(Constants.REFER_KEY, "interface" + service + "&group=group1");
+        directory = this.getRegistryDirectory(directoryUrl);
+        directory.notify(providers);
+
+        invokers = directory.list(invocation);
+
+        Assert.assertEquals(2, invokers.size());
+        Assert.assertFalse(invokers.get(0) instanceof MockClusterInvoker);
+        Assert.assertFalse(invokers.get(1) instanceof MockClusterInvoker);
     }
 
     enum Param {

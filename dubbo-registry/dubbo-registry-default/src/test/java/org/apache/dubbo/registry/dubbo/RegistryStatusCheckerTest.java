@@ -31,7 +31,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * StatusTest
- *
  */
 public class RegistryStatusCheckerTest {
 

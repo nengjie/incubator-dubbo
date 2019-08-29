@@ -279,6 +279,7 @@ public class DubboProtocol extends AbstractProtocol {
 
     /**
      * 启动服务器
+     *
      * @param url
      */
     private void openServer(URL url) {
@@ -308,10 +309,11 @@ public class DubboProtocol extends AbstractProtocol {
 
     /**
      * 服务器实例的创建过程
-     *
+     * <p>
      * createServer 包含三个核心的逻辑。
      * 第一是检测是否存在 server 参数所代表的 Transporter 拓展，不存在则抛出异常。
      * 第二是创建服务器实例。第三是检测是否支持 client 参数所表示的 Transporter 拓展，不存在也是抛出异常。
+     *
      * @param url
      * @return
      */
@@ -389,9 +391,8 @@ public class DubboProtocol extends AbstractProtocol {
     }
 
     /**
-     *
      * @param serviceType
-     * @param url  URL address for the remote service
+     * @param url         URL address for the remote service
      * @param <T>
      * @return
      * @throws RpcException
@@ -414,6 +415,7 @@ public class DubboProtocol extends AbstractProtocol {
      * 比如 NettyClient、MinaClient 等，默认情况下，Dubbo 使用 NettyClient 进行通信。
      * 根据 connections 数量决定是获取共享客户端还是创建新的客户端实例，默认情况下，使用共享客户端实例。
      * getSharedClient 方法中也会调用 initClient 方法，
+     *
      * @param url
      * @return
      */
@@ -483,7 +485,6 @@ public class DubboProtocol extends AbstractProtocol {
     }
 
     /**
-     *
      * initClient 方法首先获取用户配置的客户端类型，默认为 netty。然后检测用户配置的客户端类型是否存在，不存在则抛出异常。
      * 最后根据 lazy 配置决定创建什么类型的客户端。这里的 LazyConnectExchangeClient 代码并不是很复杂，
      * 该类会在 request 方法被调用时通过 Exchangers 的 connect 方法创建 ExchangeClient 客户端，

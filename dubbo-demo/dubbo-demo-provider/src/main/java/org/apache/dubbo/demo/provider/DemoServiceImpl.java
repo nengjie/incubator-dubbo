@@ -23,9 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Description:    服务提供方实现接口
- * @Author:         nengjie
- * @CreateDate:     2018年12月19日23:17:25
+ * @Description: 服务提供方实现接口
+ * @Author: nengjie
+ * @CreateDate: 2018年12月19日23:17:25
  */
 public class DemoServiceImpl implements DemoService {
 

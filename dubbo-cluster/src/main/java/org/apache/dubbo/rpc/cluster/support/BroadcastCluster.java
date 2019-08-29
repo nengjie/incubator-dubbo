@@ -23,7 +23,6 @@ import org.apache.dubbo.rpc.cluster.Directory;
 
 /**
  * BroadcastCluster
- *
  */
 public class BroadcastCluster implements Cluster {
 

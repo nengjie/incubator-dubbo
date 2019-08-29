@@ -56,8 +56,6 @@ import static org.apache.dubbo.common.utils.NetUtils.isInvalidLocalHost;
 /**
  * ReferenceConfig
  *
- *
- *
  * @export
  */
 public class ReferenceConfig<T> extends AbstractReferenceConfig {
@@ -154,7 +152,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
 
     /**
      * 配置解析逻辑
-     *
+     * <p>
      * 首先是方法开始到分割线1之间的代码。这段代码主要用于检测 ConsumerConfig 实例是否存在，如不存在则创建一个新的实例，然后通过系统变量或 dubbo.properties 配置文件填充 ConsumerConfig 的字段。接着是检测泛化配置，并根据配置设置 interfaceClass 的值。
      * 接着来看分割线1到分割线2之间的逻辑。这段逻辑用于从系统属性或配置文件中加载与接口名相对应的配置，并将解析结果赋值给 url 字段。url 字段的作用一般是用于点对点调用。
      * 继续向下看，分割线2和分割线3之间的代码用于检测几个核心配置类是否为空，为空则尝试从其他配置类中获取。分割线3与分割线4之间的代码主要用于收集各种配置，并将配置存储到 map 中。
@@ -366,11 +364,12 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
 
     /**
      * createProxy 似乎只是用于创建代理对象的。但实际上并非如此，该方法还会调用其他方法构建以及合并 Invoker 实例。
-     *
+     * <p>
      * 首先根据配置检查是否为本地调用，若是，则调用 InjvmProtocol 的 refer 方法生成 InjvmInvoker 实例。
      * 若不是，则读取直联配置项，或注册中心 url，并将读取到的 url 存储到 urls 中。然后根据 urls 元素数量进行后续操作。
      * 若 urls 元素数量为1，则直接通过 Protocol 自适应拓展类构建 Invoker 实例接口。若 urls 元素数量大于1，即存在多个注册中心或服务直联 url，此时先根据 url 构建 Invoker。
      * 然后再通过 Cluster 合并多个 Invoker，最后调用 ProxyFactory 生成代理类。Invoker 的构建过程以及代理类的过程比较重要，
+     *
      * @param map
      * @return
      */

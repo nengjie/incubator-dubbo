@@ -50,7 +50,7 @@ public class AbstractRegistryTest {
     public void init() {
         URL url = URL.valueOf("dubbo://192.168.0.2:2233");
         //sync update cache file
-        url = url.addParameter("save.file",true);
+        url = url.addParameter("save.file", true);
         testUrl = URL.valueOf("http://192.168.0.3:9090/registry?check=false&file=N/A&interface=com.test");
         mockUrl = new URL("dubbo", "192.168.0.1", 2200);
 
@@ -520,7 +520,7 @@ public class AbstractRegistryTest {
     }
 
     @Test
-    public void getCacheUrlsTest(){
+    public void getCacheUrlsTest() {
         List<URL> urls = new ArrayList<>();
         urls.add(testUrl);
         // check if notify successfully

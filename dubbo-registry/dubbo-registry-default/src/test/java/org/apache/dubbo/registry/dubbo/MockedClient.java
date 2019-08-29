@@ -32,7 +32,6 @@ import java.util.Map;
 
 /**
  * MockedClient
- *
  */
 public class MockedClient implements ExchangeClient {
 

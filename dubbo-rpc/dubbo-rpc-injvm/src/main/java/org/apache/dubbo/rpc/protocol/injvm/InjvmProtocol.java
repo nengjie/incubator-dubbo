@@ -93,7 +93,6 @@ public class InjvmProtocol extends AbstractProtocol implements Protocol {
     }
 
     /**
-     *
      * @param invoker Service invoker 服务的执行体
      * @param <T>
      * @return
@@ -112,6 +111,7 @@ public class InjvmProtocol extends AbstractProtocol implements Protocol {
 
     /**
      * 是否本地引用
+     *
      * @param url
      * @return
      */

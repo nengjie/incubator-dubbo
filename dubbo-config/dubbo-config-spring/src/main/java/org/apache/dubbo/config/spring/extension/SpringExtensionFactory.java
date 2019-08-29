@@ -35,7 +35,7 @@ import java.util.Set;
 
 /**
  * SpringExtensionFactory
- *
+ * <p>
  * Spring ExtensionFactory 拓展实现类。
  */
 public class SpringExtensionFactory implements ExtensionFactory {

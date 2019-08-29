@@ -94,12 +94,12 @@ public class MetricNameTest {
         Assert.assertEquals(MetricName.EMPTY.tag("foo", "bar", "baz", "biz").getTags(), refTags);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testTaggedNotPairs() {
         MetricName.EMPTY.tag("foo");
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testTaggedNotPairs2() {
         MetricName.EMPTY.tag("foo", "bar", "baz");
     }

@@ -23,7 +23,6 @@ import org.apache.dubbo.rpc.cluster.Directory;
 
 /**
  * {@link ForkingClusterInvoker}
- *
  */
 public class ForkingCluster implements Cluster {
 

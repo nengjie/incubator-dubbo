@@ -25,10 +25,11 @@ import java.util.Map;
  * @see org.apache.dubbo.rpc.Invoker#invoke(Invocation)
  * @see org.apache.dubbo.rpc.RpcInvocation
  */
+
 /**
- * @Description:    Invocation 是会话域，它持有调用过程中的变量，比如方法名，参数等。
- * @Author:         nengjie
- * @CreateDate:     2018年12月20日22:34:54
+ * @Description: Invocation 是会话域，它持有调用过程中的变量，比如方法名，参数等。
+ * @Author: nengjie
+ * @CreateDate: 2018年12月20日22:34:54
  */
 public interface Invocation {
 
@@ -84,6 +85,7 @@ public interface Invocation {
     /**
      * get the invoker in current context.
      * 获取invoker对象
+     *
      * @return invoker.
      * @transient
      */

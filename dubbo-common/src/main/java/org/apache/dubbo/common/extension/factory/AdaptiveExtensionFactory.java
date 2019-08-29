@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * AdaptiveExtensionFactory
- *
+ * <p>
  * ExtensionFactory 拓展对象集合
  *
  * @Adaptive 注解，为 ExtensionFactory 的自适应拓展实现类。

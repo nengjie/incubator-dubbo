@@ -45,14 +45,14 @@ public class StickyTest {
 
 
     private Invoker<StickyTest> invoker1 = mock(Invoker.class);
-    private  Invoker<StickyTest> invoker2 = mock(Invoker.class);
+    private Invoker<StickyTest> invoker2 = mock(Invoker.class);
     private RpcInvocation invocation;
     private Directory<StickyTest> dic;
     private Result result = new RpcResult();
     private StickyClusterInvoker<StickyTest> clusterinvoker = null;
     private URL url = URL.valueOf("test://test:11/test?"
-                    + "&loadbalance=roundrobin"
-                    + "&" + Constants.CLUSTER_STICKY_KEY + "=true"
+            + "&loadbalance=roundrobin"
+            + "&" + Constants.CLUSTER_STICKY_KEY + "=true"
     );
     private int runs = 1;
 

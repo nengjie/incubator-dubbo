@@ -27,7 +27,7 @@ public class HttpServiceImpl implements HttpService {
         called = true;
         return "Hello, " + name;
     }
-    
+
     public String sayHello(String name, int times) {
         called = true;
         StringBuilder sb = new StringBuilder();

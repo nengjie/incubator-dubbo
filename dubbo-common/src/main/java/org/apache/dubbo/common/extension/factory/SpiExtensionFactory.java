@@ -28,9 +28,10 @@ public class SpiExtensionFactory implements ExtensionFactory {
 
     /**
      * 获得拓展对象
+     *
      * @param type object type. 拓展接口
      * @param name object name. 拓展名
-     * @param <T> 泛型
+     * @param <T>  泛型
      * @return 拓展对象
      */
     @Override

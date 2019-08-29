@@ -47,7 +47,6 @@ import static org.apache.dubbo.common.Constants.*;
 
 /**
  * RegistryProtocol
- *
  */
 public class RegistryProtocol implements Protocol {
 
@@ -126,6 +125,7 @@ public class RegistryProtocol implements Protocol {
     /**
      * 服务注册逻辑
      * 第一步是获取注册中心实例，第二步是向注册中心注册服务。
+     *
      * @param registryUrl
      * @param registedProviderUrl
      */
@@ -198,6 +198,7 @@ public class RegistryProtocol implements Protocol {
     /**
      * 代码是典型的双重检查锁，大家在阅读 Dubbo 的源码中，会多次见到。接下来，我们把重点放在 Protocol 的 export 方法上。
      * 假设运行时协议为 dubbo，此处的 protocol 变量会在运行时加载 DubboProtocol，并调用 DubboProtocol 的 export 方法。
+     *
      * @param originInvoker
      * @param <T>
      * @return
@@ -254,6 +255,7 @@ public class RegistryProtocol implements Protocol {
 
     /**
      * 获得注册中心 URL
+     *
      * @param originInvoker
      * @return
      */
@@ -312,7 +314,8 @@ public class RegistryProtocol implements Protocol {
 
     /**
      * Get the key cached in bounds by invoker
-     *  获取 invoker 在 bounds中 缓存的key
+     * 获取 invoker 在 bounds中 缓存的key
+     *
      * @param originInvoker
      * @return
      */
@@ -324,6 +327,7 @@ public class RegistryProtocol implements Protocol {
 
     /**
      * 首先为 url 设置协议头，然后根据 url 参数加载注册中心实例。然后获取 group 配置，根据 group 配置决定 doRefer 第一个参数的类型。
+     *
      * @param type Service class
      * @param url  URL address for the remote service
      * @param <T>
@@ -366,6 +370,7 @@ public class RegistryProtocol implements Protocol {
      * 注册完毕后，紧接着订阅 providers、configurators、routers 等节点下的数据。
      * 完成订阅后，RegistryDirectory 会收到这几个节点下的子节点信息。由于一个服务可能部署在多台服务器上，
      * 这样就会在 providers 产生多个节点，这个时候就需要 Cluster 将多个服务节点合并为一个，并生成一个 Invoker。
+     *
      * @param cluster
      * @param registry
      * @param type

@@ -44,7 +44,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * RegistryProtocolTest
- *
  */
 public class RegistryProtocolTest {
 

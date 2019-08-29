@@ -36,7 +36,7 @@ public class ProtocolTest {
         }
     };
 
-    static{
+    static {
         InjvmProtocol injvm = InjvmProtocol.getInjvmProtocol();
     }
 
@@ -52,7 +52,7 @@ public class ProtocolTest {
 
         Protocol InjvmProtocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension("injvm");
 
-        assertEquals(0,InjvmProtocol.getDefaultPort());
+        assertEquals(0, InjvmProtocol.getDefaultPort());
 
         InjvmProtocol.export(invoker);
 

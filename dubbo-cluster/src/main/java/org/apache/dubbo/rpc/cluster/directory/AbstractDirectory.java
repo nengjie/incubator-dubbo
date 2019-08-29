@@ -37,7 +37,6 @@ import java.util.Map;
 
 /**
  * Abstract implementation of Directory: Invoker list returned from this Directory's list method have been filtered by Routers
- *
  */
 public abstract class AbstractDirectory<T> implements Directory<T> {
 
@@ -78,6 +77,7 @@ public abstract class AbstractDirectory<T> implements Directory<T> {
 
     /**
      * AbstractDirectory 封装了 Invoker 列举流程，具体的列举逻辑则由子类实现，这是典型的模板模式。
+     *
      * @param invocation
      * @return
      * @throws RpcException
@@ -156,7 +156,8 @@ public abstract class AbstractDirectory<T> implements Directory<T> {
     }
 
     /**
-     *  模板方法，由子类实现
+     * 模板方法，由子类实现
+     *
      * @param invocation
      * @return
      * @throws RpcException

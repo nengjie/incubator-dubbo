@@ -111,16 +111,18 @@ public class ClassUtilsTest {
         Assert.assertEquals((short) 0, ClassUtils.unboxed(Short.valueOf((short) 0)));
         Assert.assertEquals(0, ClassUtils.unboxed(Integer.valueOf((int) 0)));
         Assert.assertEquals((long) 0, ClassUtils.unboxed(Long.valueOf((long) 0)));
-        Assert.assertEquals((float) 0, ClassUtils.unboxed(Float.valueOf((float) 0)), ((float)0));
-        Assert.assertEquals((double) 0, ClassUtils.unboxed(Double.valueOf((double) 0)), ((double)0));
+        Assert.assertEquals((float) 0, ClassUtils.unboxed(Float.valueOf((float) 0)), ((float) 0));
+        Assert.assertEquals((double) 0, ClassUtils.unboxed(Double.valueOf((double) 0)), ((double) 0));
     }
 
     @Test
-    public void testGetSize(){
+    public void testGetSize() {
         Assert.assertEquals(0, ClassUtils.getSize(null));
-        List<Integer> list = new ArrayList<>();list.add(1);
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
         Assert.assertEquals(1, ClassUtils.getSize(list));
-        Map map = new HashMap(); map.put(1, 1);
+        Map map = new HashMap();
+        map.put(1, 1);
         Assert.assertEquals(1, ClassUtils.getSize(map));
         int[] array = new int[1];
         Assert.assertEquals(1, ClassUtils.getSize(array));
@@ -128,12 +130,12 @@ public class ClassUtilsTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void testToUri(){
+    public void testToUri() {
         ClassUtils.toURI("#xx_abc#hello");
     }
 
     @Test
-    public void testGetGenericClass(){
+    public void testGetGenericClass() {
         Assert.assertTrue(TypeVariable.class.isAssignableFrom(ClassUtils.getGenericClass(GenericClass.class)));
         Assert.assertTrue(String.class.isAssignableFrom(ClassUtils.getGenericClass(GenericClass0.class)));
         Assert.assertTrue(Collection.class.isAssignableFrom(ClassUtils.getGenericClass(GenericClass1.class)));
@@ -142,27 +144,27 @@ public class ClassUtilsTest {
     }
 
     @Test
-    public void testGetSizeMethod(){
+    public void testGetSizeMethod() {
         Assert.assertEquals("getLength()", ClassUtils.getSizeMethod(GenericClass3.class));
     }
 
-    private interface GenericInterface<T>{
+    private interface GenericInterface<T> {
     }
 
-    private class GenericClass<T> implements GenericInterface<T>{
+    private class GenericClass<T> implements GenericInterface<T> {
     }
 
-    private class GenericClass0 implements GenericInterface<String>{
+    private class GenericClass0 implements GenericInterface<String> {
     }
 
-    private class GenericClass1 implements GenericInterface<Collection<String>>{
+    private class GenericClass1 implements GenericInterface<Collection<String>> {
     }
 
-    private class GenericClass2<T> implements GenericInterface<T[]>{
+    private class GenericClass2<T> implements GenericInterface<T[]> {
     }
 
-    private class GenericClass3<T> implements GenericInterface<T[][]>{
-        public int getLength(){
+    private class GenericClass3<T> implements GenericInterface<T[][]> {
+        public int getLength() {
             return -1;
         }
     }

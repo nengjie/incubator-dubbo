@@ -146,6 +146,7 @@ public class NetUtils {
 
     /**
      * Check if an ipv6 address is reachable.
+     *
      * @param address the given address
      * @return true if it is reachable
      */
@@ -166,12 +167,13 @@ public class NetUtils {
      * normalize the ipv6 Address, convert scope name to scope id.
      * e.g.
      * convert
-     *   fe80:0:0:0:894:aeec:f37d:23e1%en0
+     * fe80:0:0:0:894:aeec:f37d:23e1%en0
      * to
-     *   fe80:0:0:0:894:aeec:f37d:23e1%5
-     *
+     * fe80:0:0:0:894:aeec:f37d:23e1%5
+     * <p>
      * The %5 after ipv6 address is called scope id.
      * see java doc of {@link Inet6Address} for more details.
+     *
      * @param address the input address
      * @return the normalized address, with scope id converted to int
      */
@@ -236,7 +238,7 @@ public class NetUtils {
             localAddress = InetAddress.getLocalHost();
             if (localAddress instanceof Inet6Address) {
                 Inet6Address address = (Inet6Address) localAddress;
-                if (isValidV6Address(address)){
+                if (isValidV6Address(address)) {
                     return normalizeV6Address(address);
                 }
             } else if (isValidAddress(localAddress)) {
@@ -259,7 +261,7 @@ public class NetUtils {
                             InetAddress address = addresses.nextElement();
                             if (address instanceof Inet6Address) {
                                 Inet6Address v6Address = (Inet6Address) address;
-                                if (isValidV6Address(v6Address)){
+                                if (isValidV6Address(v6Address)) {
                                     return normalizeV6Address(v6Address);
                                 }
                             } else if (isValidAddress(address)) {

@@ -33,11 +33,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * 因此随机数生成器生成的数字就会有更大的概率落到此区间内。只要随机数生成器产生的随机数分布性很好，
  * 在经过多次选择后，每个服务器被选中的次数比例接近其权重比例。
  * 比如，经过一万次选择后，服务器 A 被选中的次数大约为5000次，服务器 B 被选中的次数约为3000次，服务器 C 被选中的次数约为2000次。
- *
+ * <p>
  * RandomLoadBalance 的算法思想比较简单，在经过多次请求后，能够将调用请求按照权重值进行“均匀”分配。
  * 当然 RandomLoadBalance 也存在一定的缺点，当调用次数比较少时，Random 产生的随机数可能会比较集中，此时多数请求会落到同一台服务器上。
  * 这个缺点并不是很严重，多数情况下可以忽略。RandomLoadBalance 是一个简单，高效的负载均衡实现，因此 Dubbo 选择它作为缺省实现。
- *
  */
 public class RandomLoadBalance extends AbstractLoadBalance {
 

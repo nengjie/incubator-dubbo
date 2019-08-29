@@ -38,8 +38,9 @@ import java.util.regex.Pattern;
 
 /**
  * Utility methods and public methods for parsing configuration
+ * <p>
+ * AbstractConfig 主要提供配置解析与校验相关的工具方法。
  *
- *  AbstractConfig 主要提供配置解析与校验相关的工具方法。
  * @export
  */
 public abstract class AbstractConfig implements Serializable {
@@ -178,6 +179,7 @@ public abstract class AbstractConfig implements Serializable {
 
     /**
      * 将配置对象的属性，添加到参数集合
+     *
      * @param parameters
      * @param config
      */
@@ -186,12 +188,12 @@ public abstract class AbstractConfig implements Serializable {
     }
 
     /**
-     *
      * 用于将对象字段信息添加到 map 中。实现上则是通过反射获取目标对象的 getter 方法，并调用该方法获取属性值。然后再通过 getter 方法名解析出属性名，
      * 比如从方法名 getName 中可解析出属性 name。如果用户传入了属性名前缀，此时需要将属性名加入前缀内容。最后将 <属性名，属性值> 键值对存入到 map 中就行了。
+     *
      * @param parameters 参数集合  实际上，该集合会用于 URL.parameters
-     * @param config 配置对象
-     * @param prefix 属性前缀 用于配置项添加到 parameters 中时的前缀。
+     * @param config     配置对象
+     * @param prefix     属性前缀 用于配置项添加到 parameters 中时的前缀。
      */
     @SuppressWarnings("unchecked")
     protected static void appendParameters(Map<String, String> parameters, Object config, String prefix) {
@@ -269,6 +271,7 @@ public abstract class AbstractConfig implements Serializable {
 
     /**
      * 将 @Parameter(attribute = true) 配置对象的属性，添加到参数集合。
+     *
      * @param parameters
      * @param config
      */
@@ -278,6 +281,7 @@ public abstract class AbstractConfig implements Serializable {
 
     /**
      * 将 @Parameter(attribute = true) 配置对象的属性，添加到参数集合。
+     *
      * @param parameters
      * @param config
      * @param prefix

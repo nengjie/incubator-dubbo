@@ -88,6 +88,7 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
     /**
      * getRegistry 方法先访问缓存，缓存未命中则调用 createRegistry 创建 Registry，然后写入缓存。
      * 这里的 createRegistry 是一个模板方法，由具体的子类实现。
+     *
      * @param url Registry address, is not allowed to be empty
      * @return
      */
@@ -121,6 +122,7 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
 
     /**
      * 创建 Registry
+     *
      * @param url 注册中心地址
      * @return Registry 对象
      */

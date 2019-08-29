@@ -27,7 +27,7 @@
     <!-- 连接注册中心配置 -->
     <dubbo:registry address="N/A"/>
 
-    <dubbo:protocol name="dubbo" port="12345" />
+    <dubbo:protocol name="dubbo" port="12345"/>
 
     <dubbo:annotation package="org.apache.dubbo.config.spring.annotation.provider"/>
 

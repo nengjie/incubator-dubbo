@@ -200,7 +200,7 @@ public class ReferenceAnnotationBeanPostProcessorTest {
         for (Map.Entry<InjectionMetadata.InjectedElement, ReferenceBean<?>> entry : referenceBeanMap.entrySet()) {
             ReferenceBean<?> referenceBean = entry.getValue();
 
-            assertThat(referenceBean.getModule().getName(),is("defaultModule"));
+            assertThat(referenceBean.getModule().getName(), is("defaultModule"));
             assertThat(referenceBean.getMonitor(), not(nullValue()));
         }
     }
@@ -297,10 +297,10 @@ public class ReferenceAnnotationBeanPostProcessorTest {
         private DemoService demoServiceShouldNotBeSame;
 
 
-        @Reference(version = "1.2", url = "dubbo://127.0.0.1:12345", parameters = { "key1", "value1"})
+        @Reference(version = "1.2", url = "dubbo://127.0.0.1:12345", parameters = {"key1", "value1"})
         private DemoService demoServiceWithArray;
 
-        @Reference(version = "1.2", url = "dubbo://127.0.0.1:12345", parameters = { "key1", "value1"})
+        @Reference(version = "1.2", url = "dubbo://127.0.0.1:12345", parameters = {"key1", "value1"})
         private DemoService demoServiceWithArrayShouldBeSame;
 
         @Autowired

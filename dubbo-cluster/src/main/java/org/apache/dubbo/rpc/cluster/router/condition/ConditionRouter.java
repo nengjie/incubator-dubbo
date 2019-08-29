@@ -40,11 +40,9 @@ import java.util.regex.Pattern;
 
 /**
  * ConditionRouter
- *
- *
- *条件路由实现类 ConditionRouter 在进行工作前，需要先对用户配置的路由规则进行解析，得到一系列的条件。然后再根据这些条件对服务进行路由。
- *
- *
+ * <p>
+ * <p>
+ * 条件路由实现类 ConditionRouter 在进行工作前，需要先对用户配置的路由规则进行解析，得到一系列的条件。然后再根据这些条件对服务进行路由。
  */
 public class ConditionRouter implements Router {
 
@@ -61,6 +59,7 @@ public class ConditionRouter implements Router {
      * ConditionRouter 构造方法先是对路由规则做预处理，
      * 然后调用 parseRule 方法分别对服务提供者和消费者规则进行解析，
      * 最后将解析结果赋值给 whenCondition 和 thenCondition 成员变量。
+     *
      * @param url
      */
     public ConditionRouter(URL url) {
@@ -102,8 +101,9 @@ public class ConditionRouter implements Router {
 
     /**
      * 路由规则的解析逻辑
-     *
+     * <p>
      * 逻辑由正则表达式和一个 while 循环以及数个条件分支组成。
+     *
      * @param rule
      * @return
      * @throws ParseException
@@ -155,15 +155,15 @@ public class ConditionRouter implements Router {
 
         /**
          * {
-                "host": {
-                    "matches": ["2.2.2.2"],
-                    "mismatches": ["1.1.1.1"]
-                },
-                "method": {
-                    "matches": ["hello"],
-                    "mismatches": []
-                }
-            }
+         "host": {
+         "matches": ["2.2.2.2"],
+         "mismatches": ["1.1.1.1"]
+         },
+         "method": {
+         "matches": ["hello"],
+         "mismatches": []
+         }
+         }
          */
         final Matcher matcher = ROUTE_PATTERN.matcher(rule);
         while (matcher.find()) { // Try to match one by one
@@ -244,6 +244,7 @@ public class ConditionRouter implements Router {
     /**
      * router 方法先是调用 matchWhen 对服务消费者进行匹配，如果匹配失败，直接返回 Invoker 列表。
      * 如果匹配成功，再对服务提供者进行匹配，匹配逻辑封装在了 matchThen 方法中。
+     *
      * @param invokers
      * @param url        refer url
      * @param invocation
@@ -333,13 +334,14 @@ public class ConditionRouter implements Router {
      * matchWhen 方法向 matchCondition 方法传入的参数为 [whenCondition, url, null, invocation]
      * 第一个参数 whenCondition 为服务消费者匹配条件，
      * 第二个参数 url 源自 route 方法的参数列表，该参数由外部类调用 route 方法时传入。
+     * <p>
+     * matchThen 向 matchCondition 方法传入的参数 [thenCondition, url, param, null]。
+     * 第一个参数 matchThen 为服务提供者匹配条件，
+     * 第二个和第三个参数来自 matchThen 方法的参数列表，这两个参数分别为服务提供者 url 和服务消费者 url。
+     * <p>
+     * matchCondition 方法看起来有点复杂，这里简单说明一下。分割线以上的代码实际上用于获取 sampleValue 的值，
+     * 分割线以下才是进行条件匹配。条件匹配调用的逻辑封装在 isMatch 中
      *
-     *  matchThen 向 matchCondition 方法传入的参数 [thenCondition, url, param, null]。
-     *  第一个参数 matchThen 为服务提供者匹配条件，
-     *  第二个和第三个参数来自 matchThen 方法的参数列表，这两个参数分别为服务提供者 url 和服务消费者 url。
-     *
-     *  matchCondition 方法看起来有点复杂，这里简单说明一下。分割线以上的代码实际上用于获取 sampleValue 的值，
-     *  分割线以下才是进行条件匹配。条件匹配调用的逻辑封装在 isMatch 中
      * @param condition
      * @param url
      * @param param
@@ -417,8 +419,8 @@ public class ConditionRouter implements Router {
          * 1.matches 非空，mismatches 为空  遍历 matches 集合元素，并与入参进行匹配。只要有一个元素成功匹配入参，即可返回 true。若全部失配，则返回 false。
          * 2.matches 为空，mismatches 非空  遍历 mismatches 集合元素，并与入参进行匹配。只要有一个元素成功匹配入参，立即 false。若全部失配，则返回 true。
          * 3.matches 非空，mismatches 非空  优先使用 mismatches 集合元素对入参进行匹配，只要任一元素与入参匹配成功，就立即返回 false，结束方法逻辑。
-         *                                  否则再使用 matches 中的集合元素进行匹配，只要有任意一个元素匹配成功，即可返回 true。若全部失配，则返回 false.
-         *
+         * 否则再使用 matches 中的集合元素进行匹配，只要有任意一个元素匹配成功，即可返回 true。若全部失配，则返回 false.
+         * <p>
          * 4.matches 为空，mismatches 为空  直接返回 false
          *
          * @param value

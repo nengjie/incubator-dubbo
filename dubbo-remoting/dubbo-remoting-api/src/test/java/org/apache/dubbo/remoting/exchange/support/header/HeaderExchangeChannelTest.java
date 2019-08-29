@@ -26,7 +26,9 @@ import org.apache.dubbo.remoting.RemotingException;
 import org.apache.dubbo.remoting.exchange.Request;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
 import java.util.List;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -59,14 +61,14 @@ public class HeaderExchangeChannelTest {
 
     @Test
     public void getOrAddChannelTest01() {
-        channel = new MockChannel(){
+        channel = new MockChannel() {
             @Override
-            public URL getUrl(){
+            public URL getUrl() {
                 return url;
             }
 
             @Override
-            public boolean isConnected(){
+            public boolean isConnected() {
                 return true;
             }
 
@@ -155,7 +157,7 @@ public class HeaderExchangeChannelTest {
     }
 
     @Test(expected = RemotingException.class)
-    public void requestTest03() throws RemotingException{
+    public void requestTest03() throws RemotingException {
         channel = new MockChannel() {
             @Override
             public void send(Object req) throws RemotingException {
@@ -168,7 +170,7 @@ public class HeaderExchangeChannelTest {
     }
 
     @Test
-    public void isClosedTest(){
+    public void isClosedTest() {
         Assert.assertFalse(header.isClosed());
     }
 
@@ -260,16 +262,16 @@ public class HeaderExchangeChannelTest {
     }
 
     @Test
-    public void hashCodeTest(){
+    public void hashCodeTest() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((channel == null) ? 0 : channel.hashCode());
 
-        Assert.assertEquals(header.hashCode(),result);
+        Assert.assertEquals(header.hashCode(), result);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void equalsTest(){
+    public void equalsTest() {
         Assert.assertEquals(header, new HeaderExchangeChannel(channel));
         header = new HeaderExchangeChannel(null);
         Assert.assertNotEquals(header, new HeaderExchangeChannel(channel));
@@ -277,8 +279,8 @@ public class HeaderExchangeChannelTest {
 
 
     @Test
-    public void toStringTest(){
-        Assert.assertEquals(header.toString(),channel.toString());
+    public void toStringTest() {
+        Assert.assertEquals(header.toString(), channel.toString());
     }
 }
 

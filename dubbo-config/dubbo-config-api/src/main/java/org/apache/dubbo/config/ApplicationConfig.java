@@ -276,7 +276,7 @@ public class ApplicationConfig extends AbstractConfig {
     }
 
     public void setShutwait(String shutwait) {
-        System.setProperty( Constants.SHUTDOWN_WAIT_KEY, shutwait);
+        System.setProperty(Constants.SHUTDOWN_WAIT_KEY, shutwait);
         this.shutwait = shutwait;
     }
 }

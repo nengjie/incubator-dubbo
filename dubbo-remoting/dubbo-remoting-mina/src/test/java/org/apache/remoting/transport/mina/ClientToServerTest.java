@@ -28,8 +28,6 @@ import org.junit.Test;
 
 /**
  * ClientToServer
- *
- *
  */
 public abstract class ClientToServerTest extends TestCase {
 

@@ -27,7 +27,7 @@ public interface IMetricManager {
      * if not exist, an instance will be created.
      *
      * @param group the group of MetricRegistry
-     * @param name the name of the metric
+     * @param name  the name of the metric
      * @return an instance of counter
      */
     Counter getCounter(String group, MetricName name);
@@ -37,7 +37,7 @@ public interface IMetricManager {
      * if not exist, an instance will be created.
      *
      * @param group the group of MetricRegistry
-     * @param name the name of the metric
+     * @param name  the name of the metric
      * @return an instance of {@link BucketCounter}
      */
     BucketCounter getBucketCounter(String group, MetricName name);
@@ -45,14 +45,16 @@ public interface IMetricManager {
     /**
      * Create a {@link Compass} metric in give group, name, and type
      * if not exist, an instance will be created.
+     *
      * @param group the group of MetricRegistry
-     * @param name the name of the metric
+     * @param name  the name of the metric
      * @return an instance of {@link Compass}
      */
     Compass getCompass(String group, MetricName name);
 
     /**
      * Register a customized metric to specified group.
+     *
      * @param group: the group name of MetricRegistry
      * @param metric the metric to register
      */
@@ -60,12 +62,14 @@ public interface IMetricManager {
 
     /**
      * Get a list of group in current MetricManager
+     *
      * @return a list of group name
      */
     List<String> listMetricGroups();
 
     /**
      * list all metric names by group
+     *
      * @return a map of metric name set, keyed by group name
      */
     Map<String, Set<MetricName>> listMetricNamesByGroup();
@@ -73,6 +77,7 @@ public interface IMetricManager {
     /**
      * Get metric registry by group name,
      * if not found, null will be returned
+     *
      * @param group the group name to query
      * @return the MetricRegistry that is correspondent to the group
      */
@@ -80,7 +85,8 @@ public interface IMetricManager {
 
     /**
      * Get all the counters by the specific group and filter
-     * @param group the given group
+     *
+     * @param group  the given group
      * @param filter the given filter
      * @return the MetricName to Counter map
      */
@@ -88,7 +94,8 @@ public interface IMetricManager {
 
     /**
      * Get all the compasses by the specific group and filter
-     * @param group the given group
+     *
+     * @param group  the given group
      * @param filter the given filter
      * @return the MetricName to Compass map
      */

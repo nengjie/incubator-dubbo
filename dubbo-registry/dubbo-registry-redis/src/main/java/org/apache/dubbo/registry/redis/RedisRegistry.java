@@ -53,7 +53,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * RedisRegistry
- *
  */
 public class RedisRegistry extends FailbackRegistry {
 
@@ -365,8 +364,9 @@ public class RedisRegistry extends FailbackRegistry {
     }
 
     /**
-     *  当服务消费者或服务提供者，关闭时，会调用 #doUnregister(url) 方法，取消注册。在该方法中，会删除对应 Map 中的键 + 发布 unregister 事件，
-     *  从而实时通知订阅者们。因此，正常情况下，就无需监控中心，做脏数据删除的工作。
+     * 当服务消费者或服务提供者，关闭时，会调用 #doUnregister(url) 方法，取消注册。在该方法中，会删除对应 Map 中的键 + 发布 unregister 事件，
+     * 从而实时通知订阅者们。因此，正常情况下，就无需监控中心，做脏数据删除的工作。
+     *
      * @param url
      */
     @Override
@@ -411,6 +411,7 @@ public class RedisRegistry extends FailbackRegistry {
 
     /**
      * 订阅
+     *
      * @param url
      * @param listener
      */
@@ -493,7 +494,7 @@ public class RedisRegistry extends FailbackRegistry {
      * 通知
      *
      * @param jedis
-     * @param key 分类数组，例如：`/dubbo/com.alibaba.dubbo.demo.DemoService/providers`
+     * @param key   分类数组，例如：`/dubbo/com.alibaba.dubbo.demo.DemoService/providers`
      */
     private void doNotify(Jedis jedis, String key) {
         for (Map.Entry<URL, Set<NotifyListener>> entry : new HashMap<URL, Set<NotifyListener>>(getSubscribed()).entrySet()) {
@@ -502,9 +503,8 @@ public class RedisRegistry extends FailbackRegistry {
     }
 
     /**
-     *
      * @param jedis
-     * @param keys 分类数组，例如：`/dubbo/com.alibaba.dubbo.demo.DemoService/providers`
+     * @param keys      分类数组，例如：`/dubbo/com.alibaba.dubbo.demo.DemoService/providers`
      * @param url
      * @param listeners
      */
@@ -578,6 +578,7 @@ public class RedisRegistry extends FailbackRegistry {
 
     /**
      * 获得服务名，从服务路径上
+     *
      * @param categoryPath 服务路径
      * @return
      */
@@ -588,6 +589,7 @@ public class RedisRegistry extends FailbackRegistry {
 
     /**
      * 获得分类名，从分类路径上
+     *
      * @param categoryPath 分类路径
      * @return
      */
@@ -598,6 +600,7 @@ public class RedisRegistry extends FailbackRegistry {
 
     /**
      * 获得服务路径，主要截掉多余的部分
+     *
      * @param categoryPath 分类路径
      * @return
      */
@@ -623,8 +626,9 @@ public class RedisRegistry extends FailbackRegistry {
 
     /**
      * 获得分类路径
-     *
+     * <p>
      * Root + Service + Type
+     *
      * @param url
      * @return
      */
@@ -747,6 +751,7 @@ public class RedisRegistry extends FailbackRegistry {
 
         /**
          * 判断是否忽略本次对 Redis 的连接
+         *
          * @return
          */
         private boolean isSkip() {

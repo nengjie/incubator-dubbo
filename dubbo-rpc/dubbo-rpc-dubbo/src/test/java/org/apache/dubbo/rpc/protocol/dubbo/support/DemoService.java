@@ -47,7 +47,7 @@ public interface DemoService {
 
     Type enumlength(Type... types);
 
-	Type getType(Type type);
+    Type getType(Type type);
 
     String get(CustomArgument arg1);
 

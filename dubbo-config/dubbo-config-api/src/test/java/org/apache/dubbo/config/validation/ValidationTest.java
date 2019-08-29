@@ -106,7 +106,7 @@ public class ValidationTest {
                     Assert.fail();
                 } catch (ConstraintViolationException ve) {
                     Set<ConstraintViolation<?>> violations = ve.getConstraintViolations();
-                    Assert.assertEquals(violations.size(),2);
+                    Assert.assertEquals(violations.size(), 2);
                 }
 
                 // Save Error

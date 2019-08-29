@@ -38,7 +38,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * DubboRegistry
- *
  */
 public class DubboRegistry extends FailbackRegistry {
 

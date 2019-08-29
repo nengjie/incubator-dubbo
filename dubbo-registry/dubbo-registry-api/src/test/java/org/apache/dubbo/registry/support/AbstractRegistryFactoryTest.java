@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * AbstractRegistryFactoryTest
- *
  */
 public class AbstractRegistryFactoryTest {
 

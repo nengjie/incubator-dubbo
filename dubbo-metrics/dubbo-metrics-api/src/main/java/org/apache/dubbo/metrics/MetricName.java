@@ -24,11 +24,10 @@ import java.util.TreeSet;
 
 /**
  * This class is based on Dropwizard metrics, see io/dropwizard/metrics/MetricName.java
- *
+ * <p>
  * The following changes are made:
- *   * Add metric level
- *   * Cache the hash code
- *
+ * * Add metric level
+ * * Cache the hash code
  */
 public class MetricName implements Comparable<MetricName> {
 
@@ -42,9 +41,9 @@ public class MetricName implements Comparable<MetricName> {
     private MetricLevel level;
 
     private int hashCode = 0;
-    
+
     private boolean hashCodeCached = false;
-    
+
     public MetricName() {
         this(null, null, null);
     }
@@ -96,6 +95,7 @@ public class MetricName implements Comparable<MetricName> {
 
     /**
      * Metric level can be changed during runtime
+     *
      * @param level the level to set
      */
     public MetricName level(MetricLevel level) {
@@ -113,13 +113,13 @@ public class MetricName implements Comparable<MetricName> {
 
     /**
      * Build the MetricName that is this with another path appended to it.
-     *
+     * <p>
      * The new MetricName inherits the tags of this one.
      *
-     * @param p The extra path element to add to the new metric.
+     * @param p           The extra path element to add to the new metric.
      * @param inheritTags if true, tags will be inherited
      * @return A new metric name relative to the original by the path specified
-     *         in p.
+     * in p.
      */
     public MetricName resolve(String p, boolean inheritTags) {
         final String next;
@@ -153,10 +153,10 @@ public class MetricName implements Comparable<MetricName> {
      * Same as {@link #tag(Map)}, but takes a variadic list
      * of arguments.
      *
-     * @see #tag(Map)
      * @param pairs An even list of strings acting as key-value pairs.
      * @return A newly created metric name with the specified tags associated
-     *         with it.
+     * with it.
+     * @see #tag(Map)
      */
     public MetricName tag(String... pairs) {
         if (pairs == null) {
@@ -170,7 +170,7 @@ public class MetricName implements Comparable<MetricName> {
         final Map<String, String> add = new HashMap<String, String>();
 
         for (int i = 0; i < pairs.length; i += 2) {
-            add.put(pairs[i], pairs[i+1]);
+            add.put(pairs[i], pairs[i + 1]);
         }
 
         return tag(add);
@@ -181,7 +181,7 @@ public class MetricName implements Comparable<MetricName> {
      *
      * @param parts Multiple metric names to join using the separator.
      * @return A newly created metric name which has the name of the specified
-     *         parts and includes all tags of all child metric names.
+     * parts and includes all tags of all child metric names.
      **/
     public static MetricName join(MetricName... parts) {
         final StringBuilder nameBuilder = new StringBuilder();
@@ -263,14 +263,14 @@ public class MetricName implements Comparable<MetricName> {
 
     @Override
     public int hashCode() {
-        
-        if (!hashCodeCached){
-            
+
+        if (!hashCodeCached) {
+
             final int prime = 31;
             int result = 1;
             result = prime * result + ((key == null) ? 0 : key.hashCode());
             result = prime * result + ((tags == null) ? 0 : tags.hashCode());
-            
+
             hashCode = result;
             hashCodeCached = true;
         }

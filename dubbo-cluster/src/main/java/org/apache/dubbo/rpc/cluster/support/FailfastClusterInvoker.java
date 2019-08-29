@@ -33,7 +33,7 @@ import java.util.List;
  *
  * <a href="http://en.wikipedia.org/wiki/Fail-fast">Fail-fast</a>
  * FailfastClusterInvoker 只会进行一次调用，失败后立即抛出异常。适用于幂等操作，比如新增记录。
- *
+ * <p>
  * 首先是通过 select 方法选择 Invoker，然后进行远程调用。如果调用失败，则立即抛出异常。
  */
 public class FailfastClusterInvoker<T> extends AbstractClusterInvoker<T> {

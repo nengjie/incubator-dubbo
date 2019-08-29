@@ -34,11 +34,9 @@ import java.lang.annotation.Target;
  * </ol>
  * SPI provider can call {@link ExtensionLoader#getActivateExtension(URL, String, String)} to find out all activated
  * extensions with the given criteria.
- *
- *
+ * <p>
+ * <p>
  * 自动激活条件的标记。
- *
- *
  *
  * @see SPI
  * @see URL
@@ -51,11 +49,12 @@ public @interface Activate {
     /**
      * Activate the current extension when one of the groups matches. The group passed into
      * {@link ExtensionLoader#getActivateExtension(URL, String, String)} will be used for matching.
-     *  Group过滤条件。
+     * Group过滤条件。
+     * <p>
+     * 包含{@link ExtensionLoader#getActivateExtension}的group参数给的值，则返回扩展。
+     * <p>
+     * 如没有Group设置，则不过滤。
      *
-     *  包含{@link ExtensionLoader#getActivateExtension}的group参数给的值，则返回扩展。
-     *
-     *  如没有Group设置，则不过滤。
      * @return group names to match
      * @see ExtensionLoader#getActivateExtension(URL, String, String)
      */
@@ -67,7 +66,7 @@ public @interface Activate {
      * For example, given <code>@Activate("cache, validation")</code>, the current extension will be return only when
      * there's either <code>cache</code> or <code>validation</code> key appeared in the URL's parameters.
      * </p>
-     *
+     * <p>
      * Key过滤条件。包含{@link ExtensionLoader#getActivateExtension}的URL的参数Key中有，则返回扩展。
      *
      * @return URL parameter keys
@@ -79,7 +78,7 @@ public @interface Activate {
     /**
      * Relative ordering info, optional
      * Deprecated since 2.7.0
-     *
+     * <p>
      * 排序信息，可以不提供。
      *
      * @return extension list which should be put before the current one
@@ -100,6 +99,7 @@ public @interface Activate {
     /**
      * Absolute ordering info, optional
      * 排序信息，
+     *
      * @return absolute ordering info
      */
     int order() default 0;

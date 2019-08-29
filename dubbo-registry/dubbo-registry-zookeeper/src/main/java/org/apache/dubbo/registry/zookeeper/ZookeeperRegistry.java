@@ -38,7 +38,6 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * ZookeeperRegistry
- *
  */
 public class ZookeeperRegistry extends FailbackRegistry {
 
@@ -149,6 +148,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 删除节点
+     *
      * @param url
      */
     @Override
@@ -162,6 +162,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 订阅
+     *
      * @param url
      * @param listener
      */
@@ -295,6 +296,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 查询符合条件的已注册数据，与订阅的推模式相对应，这里为拉模式，只返回一次结果。
+     *
      * @param url
      * @return
      */
@@ -323,6 +325,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得根目录
+     *
      * @return
      */
     private String toRootDir() {
@@ -334,6 +337,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * Root
+     *
      * @return
      */
     private String toRootPath() {
@@ -342,6 +346,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得服务路径
+     *
      * @param url
      * @return
      */
@@ -355,8 +360,9 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得分类路径数组
-     *
+     * <p>
      * Root + Service + Type
+     *
      * @param url
      * @return
      */
@@ -380,6 +386,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得分类路径
+     *
      * @param url
      * @return
      */
@@ -389,6 +396,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得 URL 的路径
+     *
      * @param url
      * @return
      */
@@ -397,7 +405,8 @@ public class ZookeeperRegistry extends FailbackRegistry {
     }
 
     /**
-     *  获得 providers 中，和 consumer 匹配的 URL 数组
+     * 获得 providers 中，和 consumer 匹配的 URL 数组
+     *
      * @param consumer
      * @param providers
      * @return
@@ -426,6 +435,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     /**
      * 获得 providers 中，和 consumer 匹配的 URL 数组
+     *
      * @param consumer
      * @param path
      * @param providers

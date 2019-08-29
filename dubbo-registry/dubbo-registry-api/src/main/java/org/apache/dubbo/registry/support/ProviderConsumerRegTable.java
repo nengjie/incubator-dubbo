@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @date 2017/11/23
- *
+ * <p>
  * 服务提供者和消费者注册表，存储 JVM 进程内自己的服务提供者和消费者的 Invoker 。
  */
 public class ProviderConsumerRegTable {
@@ -46,7 +46,8 @@ public class ProviderConsumerRegTable {
 
     /**
      * 注册 Provider Invoker
-     * @param invoker  对象
+     *
+     * @param invoker     对象
      * @param registryUrl 注册中心 URL
      * @param providerUrl 服务提供者 UR
      */
@@ -66,6 +67,7 @@ public class ProviderConsumerRegTable {
 
     /**
      * 获得指定服务键的 Provider Invoker 集合
+     *
      * @param serviceUniqueName
      * @return
      */
@@ -79,6 +81,7 @@ public class ProviderConsumerRegTable {
 
     /**
      * 获得服务提供者对应的 Invoker Wrapper 对象
+     *
      * @param invoker
      * @return
      */
@@ -109,9 +112,10 @@ public class ProviderConsumerRegTable {
 
     /**
      * 注册 Consumer Invoker
-     * @param invoker 对象
-     * @param registryUrl 注册中心 URL
-     * @param consumerUrl 服务消费者 URL
+     *
+     * @param invoker           对象
+     * @param registryUrl       注册中心 URL
+     * @param consumerUrl       服务消费者 URL
      * @param registryDirectory 注册中心 Directory
      */
     public static void registerConsumer(Invoker invoker, URL registryUrl, URL consumerUrl, RegistryDirectory registryDirectory) {
@@ -129,7 +133,8 @@ public class ProviderConsumerRegTable {
     }
 
     /**
-     *  获得指定服务键的 Consumer Invoker 集合
+     * 获得指定服务键的 Consumer Invoker 集合
+     *
      * @param serviceUniqueName 服务键
      * @return 集合
      */

@@ -33,7 +33,6 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * ConsistentHashLoadBalance
- *
  */
 public class ConsistentHashLoadBalance extends AbstractLoadBalance {
     public static final String NAME = "consistenthash";
@@ -43,6 +42,7 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
     /**
      * doSelect 方法主要做了一些前置工作，比如检测 invokers 列表是不是变动过，以及创建 ConsistentHashSelector。
      * 这些工作做完后，接下来开始调用 ConsistentHashSelector 的 select 方法执行负载均衡逻辑。
+     *
      * @param invokers
      * @param url
      * @param invocation
@@ -74,6 +74,7 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 
     /**
      * 一致性 hash 选择器 ConsistentHashSelector 的初始化过程
+     *
      * @param <T>
      */
     private static final class ConsistentHashSelector<T> {
@@ -91,6 +92,7 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
          * ConsistentHashSelector 的构造方法执行了一系列的初始化逻辑，比如从配置中获取虚拟节点数以及参与 hash 计算的参数下标，默认情况下只使用第一个参数进行 hash。
          * 需要特别说明的是，ConsistentHashLoadBalance 的负载均衡逻辑只受参数值影响，具有相同参数值的请求将会被分配给同一个服务提供者。
          * ConsistentHashLoadBalance 不 关系权重，因此使用时需要注意一下。
+         *
          * @param invokers
          * @param methodName
          * @param identityHashCode
@@ -132,6 +134,7 @@ public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 
         /**
          * 首先是对参数进行 md5 以及 hash 运算，得到一个 hash 值。然后再拿这个值到 TreeMap 中查找目标 Invoker 即可。
+         *
          * @param invocation
          * @return
          */

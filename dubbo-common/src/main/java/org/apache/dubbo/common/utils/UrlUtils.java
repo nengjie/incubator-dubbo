@@ -28,7 +28,7 @@ import java.util.Set;
 public class UrlUtils {
 
     /**
-     *  in the url string,mark the param begin
+     * in the url string,mark the param begin
      */
     private final static String URL_PARAM_STARTING_SYMBOL = "?";
 

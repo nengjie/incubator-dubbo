@@ -26,7 +26,6 @@ import java.util.List;
 
 /**
  * AbstractLoadBalance
- *
  */
 public abstract class AbstractLoadBalance implements LoadBalance {
 
@@ -41,6 +40,7 @@ public abstract class AbstractLoadBalance implements LoadBalance {
     /**
      * select 方法的逻辑比较简单，首先会检测 invokers 集合的合法性，然后再检测 invokers 集合元素数量。如果只包含一个 Invoker，直接返回该 Inovker 即可。
      * 如果包含多个 Invoker，此时需要通过负载均衡算法选择一个 Invoker。具体的负载均衡算法由子类实现，
+     *
      * @param invokers   invokers.
      * @param url        refer url
      * @param invocation invocation.
@@ -65,6 +65,7 @@ public abstract class AbstractLoadBalance implements LoadBalance {
     /**
      * 权重的计算过程，该过程主要用于保证当服务运行时长小于服务预热时间时，对服务进行降权，避免让服务在启动之初就处于高负载状态。
      * 服务预热是一个优化手段，与此类似的还有 JVM 预热。主要目的是让服务启动后“低功率”运行一段时间，使其效率慢慢提升至最佳状态。
+     *
      * @param invoker
      * @param invocation
      * @return

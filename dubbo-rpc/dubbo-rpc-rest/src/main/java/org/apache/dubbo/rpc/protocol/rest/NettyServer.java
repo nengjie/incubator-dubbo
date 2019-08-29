@@ -29,7 +29,6 @@ import java.util.Map;
 
 /**
  * Netty server can't support @Context injection of servlet objects since it's not a servlet container
- *
  */
 public class NettyServer extends BaseRestServer {
 

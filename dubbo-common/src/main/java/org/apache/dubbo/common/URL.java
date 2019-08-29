@@ -68,14 +68,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see java.net.URL
  * @see java.net.URI
  */
+
 /**
- * @Description:    所有扩展点参数都包含 URL 参数，URL 作为上下文信息贯穿整个扩展点设计体系。
- *
- *                  URL 采用标准格式：protocol://username:password@host:port/path?key=value&key=value
- * @Author:         nengjie
- * @CreateDate:     2018年12月23日23:06:50
+ * @Description: 所有扩展点参数都包含 URL 参数，URL 作为上下文信息贯穿整个扩展点设计体系。
+ * <p>
+ * URL 采用标准格式：protocol://username:password@host:port/path?key=value&key=value
+ * @Author: nengjie
+ * @CreateDate: 2018年12月23日23:06:50
  */
-public /**final**/ class URL implements Serializable {
+public /**final**/
+class URL implements Serializable {
 
     private static final long serialVersionUID = -1985165475234910535L;
 
@@ -260,7 +262,7 @@ public /**final**/ class URL implements Serializable {
                 // see https://howdoesinternetwork.com/2013/ipv6-zone-id
                 // ignore
             } else {
-                port = Integer.parseInt(url.substring(i+1));
+                port = Integer.parseInt(url.substring(i + 1));
                 url = url.substring(0, i);
             }
         }
@@ -335,7 +337,7 @@ public /**final**/ class URL implements Serializable {
 
     /**
      * Fetch IP address for this URL.
-     *
+     * <p>
      * Pls. note that IP should be used instead of Host when to compare with socket's address or to search in a map
      * which use address as its key.
      *

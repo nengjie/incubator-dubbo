@@ -45,9 +45,10 @@ public class ExecutorUtil {
 
     /**
      * Use the shutdown pattern from:
-     *  https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html
+     * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html
+     *
      * @param executor the Executor to shutdown
-     * @param timeout the timeout in milliseconds before termination
+     * @param timeout  the timeout in milliseconds before termination
      */
     public static void gracefulShutdown(Executor executor, int timeout) {
         if (!(executor instanceof ExecutorService) || isTerminated(executor)) {

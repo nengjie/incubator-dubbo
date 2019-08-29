@@ -106,8 +106,7 @@ public class CompatibleTypeUtils {
                 // - https://github.com/apache/incubator-dubbo/issues/2003
                 if (string == null) {
                     return null;
-                }
-                else {
+                } else {
                     int len = string.length();
                     char[] chars = new char[len];
                     string.getChars(0, len, chars, 0);

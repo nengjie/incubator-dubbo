@@ -23,10 +23,11 @@ package org.apache.dubbo.rpc;
  * @see org.apache.dubbo.rpc.ExporterListener
  * @see org.apache.dubbo.rpc.protocol.AbstractExporter
  */
+
 /**
- * @Description:    Invoker 暴露服务在 Protocol上的对象
- * @Author:         nengjie
- * @CreateDate:     2018年12月20日23:22:10
+ * @Description: Invoker 暴露服务在 Protocol上的对象
+ * @Author: nengjie
+ * @CreateDate: 2018年12月20日23:22:10
  */
 public interface Exporter<T> {
 

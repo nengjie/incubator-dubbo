@@ -31,7 +31,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * If there is only one invoker, use the invoker directly;
  * if there are multiple invokers and the weights are not the same, then random according to the total weight;
  * if there are multiple invokers and the same weight, then randomly called.
- *
+ * <p>
  * LeastActiveLoadBalance 翻译过来是最小活跃数负载均衡。活跃调用数越小，表明该服务提供者效率越高，单位时间内可处理更多的请求。
  * 此时应优先将请求分配给该服务提供者。在具体实现中，每个服务提供者对应一个活跃数 active。
  * 初始情况下，所有服务提供者活跃数均为0。每收到一个请求，活跃数加1，完成请求后则将活跃数减1。
@@ -41,8 +41,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * 所以准确的来说，LeastActiveLoadBalance 是基于加权最小活跃数算法实现的。
  * 举个例子说明一下，在一个服务提供者集群中，有两个性能优异的服务提供者。某一时刻它们的活跃数相同，
  * 此时 Dubbo 会根据它们的权重去分配请求，权重越大，获取到新请求的概率就越大。如果两个服务提供者权重相同，此时随机选择一个即可。
- *
- *
  */
 public class LeastActiveLoadBalance extends AbstractLoadBalance {
 
@@ -55,7 +53,6 @@ public class LeastActiveLoadBalance extends AbstractLoadBalance {
      * 3.如果只有一个 Invoker 具有最小的活跃数，此时直接返回该 Invoker 即可
      * 4.如果有多个 Invoker 具有最小活跃数，且它们的权重不相等，此时处理方式和 RandomLoadBalance 一致
      * 5.如果有多个 Invoker 具有最小活跃数，但它们的权重相等，此时随机返回一个即可
-     *
      *
      * @param invokers
      * @param url

@@ -24,7 +24,6 @@ import org.apache.dubbo.rpc.cluster.Directory;
 /**
  * {@link FailoverClusterInvoker}
  * 用于创建 FailoverClusterInvoker 对象
- *
  */
 public class FailoverCluster implements Cluster {
 

@@ -28,8 +28,8 @@ import java.lang.annotation.Target;
 /**
  * Multiple {@link EnableDubboConfigBinding} {@link Annotation}
  *
- * @since 2.5.8
  * @see EnableDubboConfigBinding
+ * @since 2.5.8
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

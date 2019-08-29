@@ -37,7 +37,6 @@ import java.util.List;
 
 /**
  * DubboRegistryFactory
- *
  */
 public class DubboRegistryFactory extends AbstractRegistryFactory {
 

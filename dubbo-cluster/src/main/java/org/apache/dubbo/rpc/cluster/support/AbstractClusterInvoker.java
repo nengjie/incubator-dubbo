@@ -101,17 +101,17 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
      * b) Reselection, the validation rule for reselection: selected > available. This rule guarantees that
      * the selected invoker has the minimum chance to be one in the previously selected list, and also
      * guarantees this invoker is available.
-     *
-     *  select 方法的主要逻辑集中在了对粘滞连接特性的支持上。
-     *  首先是获取 sticky 配置，然后再检测 invokers 列表中是否包含 stickyInvoker，
-     *  如果不包含，则认为该 stickyInvoker 不可用，此时将其置空。这里的 invokers 列表可以看做是存活着的服务提供者列表，如果这个列表不包含 stickyInvoker，那自然而然的认为 stickyInvoker 挂了，
-     *  所以置空。如果 stickyInvoker 存在于 invokers 列表中，此时要进行下一项检测 — 检测 selected 中是否包含 stickyInvoker。
-     *
-     *  如果包含的话，说明 stickyInvoker 在此之前没有成功提供服务（但其仍然处于存活状态）。此时我们认为这个服务不可靠，不应该在重试期间内再次被调用，
-     *  因此这个时候不会返回该 stickyInvoker。
-     *
-     *  如果 selected 不包含 stickyInvoker，此时还需要进行可用性检测，比如检测服务提供者网络连通性等。当可用性检测通过，才可返回 stickyInvoker，否则调用 doSelect 方法选择 Invoker。
-     *  如果 sticky 为 true，此时会将 doSelect 方法选出的 Invoker 赋值给 stickyInvoker。
+     * <p>
+     * select 方法的主要逻辑集中在了对粘滞连接特性的支持上。
+     * 首先是获取 sticky 配置，然后再检测 invokers 列表中是否包含 stickyInvoker，
+     * 如果不包含，则认为该 stickyInvoker 不可用，此时将其置空。这里的 invokers 列表可以看做是存活着的服务提供者列表，如果这个列表不包含 stickyInvoker，那自然而然的认为 stickyInvoker 挂了，
+     * 所以置空。如果 stickyInvoker 存在于 invokers 列表中，此时要进行下一项检测 — 检测 selected 中是否包含 stickyInvoker。
+     * <p>
+     * 如果包含的话，说明 stickyInvoker 在此之前没有成功提供服务（但其仍然处于存活状态）。此时我们认为这个服务不可靠，不应该在重试期间内再次被调用，
+     * 因此这个时候不会返回该 stickyInvoker。
+     * <p>
+     * 如果 selected 不包含 stickyInvoker，此时还需要进行可用性检测，比如检测服务提供者网络连通性等。当可用性检测通过，才可返回 stickyInvoker，否则调用 doSelect 方法选择 Invoker。
+     * 如果 sticky 为 true，此时会将 doSelect 方法选出的 Invoker 赋值给 stickyInvoker。
      *
      * @param loadbalance load balance policy
      * @param invocation  invocation
@@ -121,7 +121,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
      * @throws RpcException
      */
     protected Invoker<T> select(LoadBalance loadbalance, Invocation invocation,
-        List<Invoker<T>> invokers, List<Invoker<T>> selected) throws RpcException {
+                                List<Invoker<T>> invokers, List<Invoker<T>> selected) throws RpcException {
 
         if (CollectionUtils.isEmpty(invokers)) {
             return null;
@@ -133,7 +133,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
         // 获取 sticky 配置，sticky 表示粘滞连接。所谓粘滞连接是指让服务消费者尽可能的
         // 调用同一个服务提供者，除非该提供者挂了再进行切换
         boolean sticky = invokers.get(0).getUrl()
-            .getMethodParameter(methodName, Constants.CLUSTER_STICKY_KEY, Constants.DEFAULT_CLUSTER_STICKY);
+                .getMethodParameter(methodName, Constants.CLUSTER_STICKY_KEY, Constants.DEFAULT_CLUSTER_STICKY);
 
         //ignore overloaded method
         // 检测 invokers 列表是否包含 stickyInvoker，如果不包含，
@@ -169,6 +169,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
     /**
      * doSelect 主要做了两件事，第一是通过负载均衡组件选择 Invoker。第二是，如果选出来的 Invoker 不稳定，或不可用，此时需要调用 reselect 方法进行重选。
      * 若 reselect 选出来的 Invoker 为空，此时定位 invoker 在 invokers 列表中的位置 index，然后获取 index + 1 处的 invoker，这也可以看做是重选逻辑的一部分。
+     *
      * @param loadbalance
      * @param invocation
      * @param invokers
@@ -177,7 +178,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
      * @throws RpcException
      */
     private Invoker<T> doSelect(LoadBalance loadbalance, Invocation invocation,
-        List<Invoker<T>> invokers, List<Invoker<T>> selected) throws RpcException {
+                                List<Invoker<T>> invokers, List<Invoker<T>> selected) throws RpcException {
 
         if (CollectionUtils.isEmpty(invokers)) {
             return null;
@@ -226,9 +227,10 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
     /**
      * Reselect, use invokers not in `selected` first, if all invokers are in `selected`,
      * just pick an available one using loadbalance policy.
-     *  第一是查找可用的 Invoker，并将其添加到 reselectInvokers 集合中。
-     *  第二，如果 reselectInvokers 不为空，则通过负载均衡组件再次进行选择。其中第一件事情又可进行细分，
-     *  一开始，reselect 从 invokers 列表中查找有效可用的 Invoker，若未能找到，此时再到 selected 列表中继续查找。
+     * 第一是查找可用的 Invoker，并将其添加到 reselectInvokers 集合中。
+     * 第二，如果 reselectInvokers 不为空，则通过负载均衡组件再次进行选择。其中第一件事情又可进行细分，
+     * 一开始，reselect 从 invokers 列表中查找有效可用的 Invoker，若未能找到，此时再到 selected 列表中继续查找。
+     *
      * @param loadbalance
      * @param invocation
      * @param invokers
@@ -237,11 +239,11 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
      * @throws RpcException
      */
     private Invoker<T> reselect(LoadBalance loadbalance, Invocation invocation,
-        List<Invoker<T>> invokers, List<Invoker<T>> selected, boolean availablecheck) throws RpcException {
+                                List<Invoker<T>> invokers, List<Invoker<T>> selected, boolean availablecheck) throws RpcException {
 
         //Allocating one in advance, this list is certain to be used.
         List<Invoker<T>> reselectInvokers = new ArrayList<>(
-            invokers.size() > 1 ? (invokers.size() - 1) : invokers.size());
+                invokers.size() > 1 ? (invokers.size() - 1) : invokers.size());
 
         // First, try picking a invoker not in `selected`.
         // 遍历 invokers 列表
@@ -284,6 +286,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
 
     /**
      * AbstractClusterInvoker 的 invoke 方法主要用于列举 Invoker，以及加载 LoadBalance。最后再调用模板方法 doInvoke 进行后续操作。
+     *
      * @param invocation
      * @return
      * @throws RpcException
@@ -337,6 +340,7 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
 
     /**
      * 抽象方法，由子类实现
+     *
      * @param invocation
      * @param invokers
      * @param loadbalance
@@ -358,7 +362,8 @@ public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
      * if invokers is not empty, init from the first invoke's url and invocation
      * if invokes is empty, init a default LoadBalance(RandomLoadBalance)
      * </p>
-     *  加载 LoadBalance
+     * 加载 LoadBalance
+     *
      * @param invokers   invokers
      * @param invocation invocation
      * @return LoadBalance instance. if not need init, return null.

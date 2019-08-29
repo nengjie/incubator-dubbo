@@ -40,7 +40,6 @@ import static org.mockito.Mockito.mock;
 
 /**
  * FailfastClusterInvokerTest
- *
  */
 @SuppressWarnings("unchecked")
 public class FailfastClusterInvokerTest {

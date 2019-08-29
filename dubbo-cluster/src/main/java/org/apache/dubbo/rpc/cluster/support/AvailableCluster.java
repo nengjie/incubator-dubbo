@@ -28,7 +28,6 @@ import java.util.List;
 
 /**
  * AvailableCluster
- *
  */
 public class AvailableCluster implements Cluster {
 

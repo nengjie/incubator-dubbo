@@ -22,8 +22,9 @@ import java.util.List;
 
 /**
  * RegistryService. (SPI, Prototype, ThreadSafe)
+ * <p>
+ * 注册中心服务接口，定义了注册、订阅、查询三种操作方法
  *
- *  注册中心服务接口，定义了注册、订阅、查询三种操作方法
  * @see org.apache.dubbo.registry.Registry
  * @see org.apache.dubbo.registry.RegistryFactory#getRegistry(URL)
  */
@@ -38,9 +39,10 @@ public interface RegistryService {
      * 3. When the URL sets category=routers, it means classified storage, the default category is providers, and the data can be notified by the classified section. <br>
      * 4. When the registry is restarted, network jitter, data can not be lost, including automatically deleting data from the broken line.<br>
      * 5. Allow URLs which have the same URL but different parameters to coexist,they can't cover each other.<br>
+     * <p>
+     * 注册数据，比如：提供者地址，消费者地址，路由规则，覆盖规则，等数据。
      *
-     *  注册数据，比如：提供者地址，消费者地址，路由规则，覆盖规则，等数据。
-     * @param url  Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
+     * @param url Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      */
     void register(URL url);
 
@@ -50,8 +52,9 @@ public interface RegistryService {
      * Unregistering is required to support the contract:<br>
      * 1. If it is the persistent stored data of dynamic=false, the registration data can not be found, then the IllegalStateException is thrown, otherwise it is ignored.<br>
      * 2. Unregister according to the full url match.<br>
+     * <p>
+     * 取消注册。
      *
-     *  取消注册。
      * @param url Registration information , is not allowed to be empty, e.g: dubbo://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      */
     void unregister(URL url);
@@ -67,13 +70,13 @@ public interface RegistryService {
      * 5. When the registry is restarted and network jitter, it is necessary to automatically restore the subscription request.<br>
      * 6. Allow URLs which have the same URL but different parameters to coexist,they can't cover each other.<br>
      * 7. The subscription process must be blocked, when the first notice is finished and then returned.<br>
-     *
-     *  订阅符合条件的已注册数据，当有注册数据变更时自动推送。
-     *  订阅的数据分类。目前有四种类型：
-     *  1.服务消费者列表
-     *  2.服务提供者列表
-     *  3.路由规则列表
-     *  4.配置规则列表
+     * <p>
+     * 订阅符合条件的已注册数据，当有注册数据变更时自动推送。
+     * 订阅的数据分类。目前有四种类型：
+     * 1.服务消费者列表
+     * 2.服务提供者列表
+     * 3.路由规则列表
+     * 4.配置规则列表
      *
      * @param url      Subscription condition, not allowed to be empty, e.g. consumer://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      * @param listener A listener of the change event, not allowed to be empty
@@ -86,8 +89,9 @@ public interface RegistryService {
      * Unsubscribing is required to support the contract:<br>
      * 1. If don't subscribe, ignore it directly.<br>
      * 2. Unsubscribe by full URL match.<br>
+     * <p>
+     * 取消订阅。
      *
-     *  取消订阅。
      * @param url      Subscription condition, not allowed to be empty, e.g. consumer://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      * @param listener A listener of the change event, not allowed to be empty
      */
@@ -95,8 +99,9 @@ public interface RegistryService {
 
     /**
      * Query the registered data that matches the conditions. Corresponding to the push mode of the subscription, this is the pull mode and returns only one result.
+     * <p>
+     * 查询符合条件的已注册数据，与订阅的推模式相对应，这里为拉模式，只返回一次结果。
      *
-     *  查询符合条件的已注册数据，与订阅的推模式相对应，这里为拉模式，只返回一次结果。
      * @param url Query condition, is not allowed to be empty, e.g. consumer://10.20.153.10/org.apache.dubbo.foo.BarService?version=1.0.0&application=kylin
      * @return The registered information list, which may be empty, the meaning is the same as the parameters of {@link org.apache.dubbo.registry.NotifyListener#notify(List<URL>)}.
      * @see org.apache.dubbo.registry.NotifyListener#notify(List)

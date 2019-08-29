@@ -32,7 +32,6 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * SimpleRegistryService
- *
  */
 public class SimpleRegistryService extends AbstractRegistryService {
 

@@ -1622,7 +1622,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ARG((short) 1, "arg");
 
@@ -1742,7 +1744,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
         }
@@ -1914,7 +1918,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -2034,7 +2040,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__ARG_ISSET_ID);
         }
 
-        /** Returns true if field arg is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field arg is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetArg() {
             return __isset_bit_vector.get(__ARG_ISSET_ID);
         }
@@ -2209,7 +2217,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ARG((short) 1, "arg");
 
@@ -2329,7 +2339,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
         }
@@ -2360,7 +2372,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -2499,7 +2513,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -2619,7 +2635,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__ARG_ISSET_ID);
         }
 
-        /** Returns true if field arg is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field arg is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetArg() {
             return __isset_bit_vector.get(__ARG_ISSET_ID);
         }
@@ -2650,7 +2668,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -2792,7 +2812,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ARG((short) 1, "arg");
 
@@ -2912,7 +2934,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
         }
@@ -2943,7 +2967,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -3082,7 +3108,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -3202,7 +3230,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__ARG_ISSET_ID);
         }
 
-        /** Returns true if field arg is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field arg is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetArg() {
             return __isset_bit_vector.get(__ARG_ISSET_ID);
         }
@@ -3233,7 +3263,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -3375,7 +3407,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ARG((short) 1, "arg");
 
@@ -3495,7 +3529,9 @@ public class $__DemoStub {
             __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
         }
@@ -3526,7 +3562,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -3665,7 +3703,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             SUCCESS((short) 0, "success");
 
@@ -3781,7 +3821,9 @@ public class $__DemoStub {
             this.arg = null;
         }
 
-        /** Returns true if field arg is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field arg is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetArg() {
             return this.arg != null;
         }
@@ -3814,7 +3856,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();
@@ -3958,7 +4002,9 @@ public class $__DemoStub {
             }
         }
 
-        /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+        /**
+         * The set of fields this struct contains, along with convenience methods for finding and manipulating them.
+         */
         public enum _Fields implements org.apache.thrift.TFieldIdEnum {
             ARG((short) 1, "arg");
 
@@ -4074,7 +4120,9 @@ public class $__DemoStub {
             this.success = null;
         }
 
-        /** Returns true if field success is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field success is set (has been assigned a value) and false otherwise
+         */
         public boolean isSetSuccess() {
             return this.success != null;
         }
@@ -4107,7 +4155,9 @@ public class $__DemoStub {
             throw new IllegalStateException();
         }
 
-        /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+        /**
+         * Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise
+         */
         public boolean isSet(_Fields field) {
             if (field == null) {
                 throw new IllegalArgumentException();

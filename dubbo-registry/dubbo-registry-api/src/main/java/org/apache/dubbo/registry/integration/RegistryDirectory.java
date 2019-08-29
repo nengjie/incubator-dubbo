@@ -188,7 +188,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
     /**
      * RegistryDirectory 是一个动态服务目录，会随注册中心配置的变化进行动态调整。
      * 因此 RegistryDirectory 实现了 NotifyListener 接口，通过这个接口获取注册中心变更通知。
-     *
+     * <p>
      * notify 方法首先是根据 url 的 category 参数对 url 进行分门别类存储，
      * 然后通过 toRouters 和 toConfigurators 将 url 列表转成 Router 和 Configurator 列表。
      * 最后调用 refreshInvoker 方法刷新 Invoker 列表。
@@ -255,17 +255,17 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
      * 1.If URL has been converted to invoker, it is no longer re-referenced and obtained directly from the cache, and notice that any parameter changes in the URL will be re-referenced.
      * 2.If the incoming invoker list is not empty, it means that it is the latest invoker list
      * 3.If the list of incoming invokerUrl is empty, It means that the rule is only a override rule or a route rule, which needs to be re-contrasted to decide whether to re-reference.
-     *
+     * <p>
      * refreshInvoker 方法是保证 RegistryDirectory 随注册中心变化而变化的关键所在。
-     *
+     * <p>
      * refreshInvoker 方法首先会根据入参 invokerUrls 的数量和协议头判断是否禁用所有的服务，
      * 如果禁用，则将 forbidden 设为 true，并销毁所有的 Invoker。
      * 若不禁用，则将 url 转成 Invoker，得到 <url, Invoker> 的映射关系。然后进一步进行转换，得到 <methodName, Invoker 列表> 映射关系。
      * 之后进行多组 Invoker 合并操作，并将合并结果赋值给 methodInvokerMap。methodInvokerMap 变量在 doList 方法中会被用到，
      * doList 会对该变量进行读操作，在这里是写操作。
      * 当新的 Invoker 列表生成后，还要一个重要的工作要做，就是销毁无用的 Invoker，避免服务消费者调用已下线的服务的服务。
-     *
-     *
+     * <p>
+     * <p>
      * 整个过程进行简单总结。
      * 1.检测入参是否仅包含一个 url，且 url 协议头为 empty
      * 2.若第一步检测结果为 true，表示禁用所有服务，此时销毁所有的 Invoker
@@ -330,6 +330,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
      * 首先是生成 group 到 Invoker 类比的映射关系表，若关系表中的映射关系数量大于1，表示有多组服务。
      * 此时通过集群类合并每组 Invoker，并将合并结果存储到 groupInvokers 中。
      * 之后将方法名与 groupInvokers 存到到 result 中，并返回，整个逻辑结束。
+     *
      * @param methodMap
      * @return
      */
@@ -420,13 +421,14 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
 
     /**
      * Turn urls into invokers, and if url has been refer, will not re-reference.
-     *
+     * <p>
      * 将 url 转成 Invoker
-     *  toInvokers 方法一开始会对服务提供者 url 进行检测，
+     * toInvokers 方法一开始会对服务提供者 url 进行检测，
      * 若服务消费端的配置不支持服务端的协议，或服务端 url 协议头为 empty 时，toInvokers 均会忽略服务提供方 url。
      * 必要的检测做完后，紧接着是合并 url，
      * 然后访问缓存，尝试获取与 url 对应的 invoker。
      * 如果缓存命中，直接将 Invoker 存入 newUrlInvokerMap 中即可。如果未命中，则需新建 Invoker。
+     *
      * @param urls
      * @return invokers
      */
@@ -580,14 +582,14 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
 
     /**
      * Transform the invokers list into a mapping relationship with a method
-     *
-     *  toInvokers 方法返回的是 <url, Invoker> 映射关系表
-     *
-     *  方法名到 Invoker 列表的映射关系。
-     *  第一是对入参进行遍历，然后从 Invoker 的 url 成员变量中获取 methods 参数，并切分成数组。
-     *        随后以方法名为键，Invoker 列表为值，将映射关系存储到 newMethodInvokerMap 中。
-     *  第二是分别基于类和方法对 Invoker 列表进行路由操作。
-     *  第三是对 Invoker 列表进行排序，并转成不可变列表。
+     * <p>
+     * toInvokers 方法返回的是 <url, Invoker> 映射关系表
+     * <p>
+     * 方法名到 Invoker 列表的映射关系。
+     * 第一是对入参进行遍历，然后从 Invoker 的 url 成员变量中获取 methods 参数，并切分成数组。
+     * 随后以方法名为键，Invoker 列表为值，将映射关系存储到 newMethodInvokerMap 中。
+     * 第二是分别基于类和方法对 Invoker 列表进行路由操作。
+     * 第三是对 Invoker 列表进行排序，并转成不可变列表。
      *
      * @param invokersMap Invoker Map
      * @return Mapping relation between Invoker and method
@@ -679,9 +681,10 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
     /**
      * Check whether the invoker in the cache needs to be destroyed
      * If set attribute of url: refer.autodestroy=false, the invokers will only increase without decreasing,there may be a refer leak
-     *
+     * <p>
      * destroyUnusedInvokers 方法的主要逻辑是通过 newUrlInvokerMap 找出待删除 Invoker 对应的 url，并将 url 存入到 deleted 列表中。
      * 然后再遍历 deleted 列表，并从 oldUrlInvokerMap 中移除相应的 Invoker，销毁之。整个逻辑大致如此，
+     *
      * @param oldUrlInvokerMap
      * @param newUrlInvokerMap
      */
@@ -738,11 +741,12 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
 
     /**
      * 列举逻辑
-     *
+     * <p>
      * 代码进行多次尝试，以期从 localMethodInvokerMap 中获取到 Invoker 列表。
      * 一般情况下，普通的调用可通过方法名获取到对应的 Invoker 列表，泛化调用可通过 ***** 获取到 Invoker 列表。
      * localMethodInvokerMap 源自 RegistryDirectory 类的成员变量 methodInvokerMap。
      * doList 方法可以看做是对 methodInvokerMap 变量的读操作，
+     *
      * @param invocation
      * @return
      */
